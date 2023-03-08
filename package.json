@@ -1,6 +1,6 @@
 {
   "name": "ecommerce-pern-stack",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "release-same-version": "git flow release start next && git flow release finish -n next",
     "release-minor": "git flow release start next && npm version minor && git flow release finish -n next",
     "release-patch": "git flow release start next && npm version patch && git flow release finish -n next",
-    "push": "git checkout master && git push && git checkout develop && git push"
+    "push": "git checkout main && git push && git checkout develop && git push"
   },
   "auto-changelog": {
     "output": "HISTORY.md",
