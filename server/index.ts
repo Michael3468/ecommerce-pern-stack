@@ -1,11 +1,11 @@
 require('dotenv').config();
 const express = require('express');
-const sequelize = require('./db');
-const models = require('./models/models');
+const sequelize = require('./src/db');
+const models = require('./src/models/models');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
-const router = require('./routes/index');
-const errorHandler = require('./middleware/ErrorHandlingMiddleware');
+const router = require('./src/routes/index');
+const errorHandler = require('./src/middleware/ErrorHandlingMiddleware');
 const { application } = require('express');
 const path = require('path');
 
