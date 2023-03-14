@@ -25,6 +25,7 @@ module.exports = {
 
   rules: {
     'node/exports-style': ['error', 'module.exports'],
+    'node/no-missing-require': 'error',
     'node/file-extension-in-import': ['error', 'always'],
     'node/prefer-global/buffer': ['error', 'always'],
     'node/prefer-global/console': ['error', 'always'],
@@ -63,7 +64,8 @@ module.exports = {
     // eslint-plugin-import (fix imports order)
     'import/resolver': {
       node: {
-        extensions: ['.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        tryExtensions: ['.js', '.ts', '.json', '.node'],
         moduleDirectory: ['node_modules', 'src/'],
       },
       typescript: {
