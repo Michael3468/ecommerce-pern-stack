@@ -8,7 +8,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon index.ts"
+    "dev": "nodemon ./src/index.ts"
   },
   "keywords": [],
   "author": "",

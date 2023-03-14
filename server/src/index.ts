@@ -5,9 +5,9 @@ const cors = require('cors');
 const express = require('express');
 const fileUpload = require('express-fileupload');
 
-const sequelize = require('./src/db.ts');
-const errorHandler = require('./src/middleware/ErrorHandlingMiddleware');
-const router = require('./src/routes/index');
+const sequelize = require('./db.ts');
+const errorHandler = require('./middleware/ErrorHandlingMiddleware');
+const router = require('./routes/index');
 
 const PORT = process.env.PORT || 5000;
 
