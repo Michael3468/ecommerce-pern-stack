@@ -8,7 +8,6 @@ class BrandController {
       const brand = await Brand.create({ name });
       return res.json(brand);
     } catch (err) {
-      console.error(err);
       next(ApiError.badRequest(err.message));
     }
   }
@@ -18,7 +17,6 @@ class BrandController {
       const brands = await Brand.findAll();
       return res.json(brands);
     } catch (err) {
-      console.error(err);
       next(ApiError.badRequest(err.message));
     }
   }

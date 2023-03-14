@@ -8,7 +8,6 @@ class TypeController {
       const type = await Type.create({ name });
       return res.json(type);
     } catch (err) {
-      console.error(err);
       next(ApiError.badRequest(err.message));
     }
   }
@@ -17,7 +16,6 @@ class TypeController {
       const types = await Type.findAll();
       return res.json(types);
     } catch (err) {
-      console.error(err);
       next(ApiError.badRequest(err.message));
     }
   }
