@@ -5,7 +5,7 @@ const cors = require('cors');
 const express = require('express');
 const fileUpload = require('express-fileupload');
 
-const sequelize = require('./db.ts');
+const sequelize = require('./db');
 const errorHandler = require('./middleware/ErrorHandlingMiddleware');
 const router = require('./routes/index');
 
