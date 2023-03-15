@@ -6,8 +6,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 6,
-    // project: './tsconfig.json', // ??
+    ecmaVersion: 2022,
   },
 
   extends: [
@@ -24,7 +23,13 @@ module.exports = {
   plugins: ['import', '@typescript-eslint'],
 
   rules: {
-    'node/exports-style': ['error', 'module.exports'],
+    // 'node/exports-style': ['error', 'module.exports'],
+    'node/no-missing-require': [
+      'error',
+      {
+        tryExtensions: ['.js', '.ts', '.json', '.node'],
+      },
+    ],
     'node/file-extension-in-import': ['error', 'always'],
     'node/prefer-global/buffer': ['error', 'always'],
     'node/prefer-global/console': ['error', 'always'],
@@ -57,13 +62,16 @@ module.exports = {
         },
       },
     ],
+
+    'node/no-unsupported-features/es-syntax': ['error', { ignores: ['modules'] }],
   },
 
   settings: {
     // eslint-plugin-import (fix imports order)
     'import/resolver': {
       node: {
-        extensions: ['.ts', '.tsx'],
+        extensions: ['.js', '.ts'],
+        tryExtensions: ['.js', '.ts', '.json', '.node'],
         moduleDirectory: ['node_modules', 'src/'],
       },
       typescript: {
