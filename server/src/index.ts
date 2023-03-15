@@ -1,13 +1,19 @@
-require('dotenv').config();
-const cors = require('cors');
-const express = require('express');
-const fileUpload = require('express-fileupload');
-const path = require('path');
+import 'dotenv/config';
 
-const sequelize = require('./src/db');
-const errorHandler = require('./src/middleware/ErrorHandlingMiddleware');
-const models = require('./src/models/models');
-const router = require('./src/routes/index');
+import path from 'path';
+
+import cors from 'cors';
+import express from 'express';
+import fileUpload from 'express-fileupload';
+import { fileURLToPath } from 'url';
+
+import { sequelize } from './db';
+import { errorHandler } from './middleware/ErrorHandlingMiddleware';
+import { router } from './routes/index';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 5000;
 
