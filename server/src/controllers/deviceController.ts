@@ -1,16 +1,22 @@
-const path = require('path');
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const uuid = require('uuid');
+// import uuid from 'uuid';
+import { v4 as uuid_v4 } from 'uuid';
 
-const ApiError = require('../error/ApiError');
-const { Device } = require('../models/models');
+import ApiError from '../error/ApiError';
+import { Device } from '../models/models';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class DeviceController {
   async create(req, res, next) {
     try {
       const { name, price, brandId, typeId, info } = req.body;
       const { img } = req.files;
-      const fileName = uuid.v4() + '.jpg';
+      // const fileName = uuid.v4() + '.jpg';
+      const fileName = uuid_v4() + '.jpg';
       img.mv(path.resolve(__dirname, '..', 'static', fileName));
 
       const device = await Device.create({ name, price, brandId, typeId, img: fileName });
@@ -24,4 +30,4 @@ class DeviceController {
   async getOne(req, res) {}
 }
 
-module.exports = new DeviceController();
+export default DeviceController;

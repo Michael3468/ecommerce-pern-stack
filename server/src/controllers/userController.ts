@@ -1,4 +1,4 @@
-const ApiError = require('../error/ApiError');
+import ApiError from '../error/ApiError';
 
 class UserController {
   async registration(req, res) {}
@@ -13,4 +13,4 @@ class UserController {
   }
 }
 
-module.exports = new UserController();
+export default UserController;

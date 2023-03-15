@@ -6,8 +6,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 6,
-    // project: './tsconfig.json', // ??
+    ecmaVersion: 2022,
   },
 
   extends: [
@@ -24,7 +23,7 @@ module.exports = {
   plugins: ['import', '@typescript-eslint'],
 
   rules: {
-    'node/exports-style': ['error', 'module.exports'],
+    // 'node/exports-style': ['error', 'module.exports'],
     'node/no-missing-require': [
       'error',
       {
@@ -63,6 +62,8 @@ module.exports = {
         },
       },
     ],
+
+    'node/no-unsupported-features/es-syntax': ['error', { ignores: ['modules'] }],
   },
 
   settings: {
