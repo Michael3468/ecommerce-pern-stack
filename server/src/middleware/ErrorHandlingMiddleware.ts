@@ -1,6 +1,8 @@
+import { Request, Response, NextFunction } from 'express';
 import ApiError from '../error/ApiError';
 
-function errorHandler (err, req, res, next) {
+// TODO err: any
+function errorHandler (err: any, req: Request, res: Response, next: NextFunction) {
   if (err instanceof ApiError) {
     return res.status(err.status).json({ message: err.message });
   }
