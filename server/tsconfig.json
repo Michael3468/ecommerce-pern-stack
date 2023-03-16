@@ -1,13 +1,13 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
       "target": "esnext",
+      "module": "ESNext",
       "lib": ["es6", "es5", "es7", "dom"],
       "allowJs": true,
-      "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
       "strict": true,
       "forceConsistentCasingInFileNames": true,
-      "module": "ESNext",
       "outDir": "./build",
       "moduleResolution": "node",
       "resolveJsonModule": true,
