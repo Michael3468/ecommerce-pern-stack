@@ -3,5 +3,6 @@
     "codepaths",
     "fileupload",
     "tsbuildinfo"
-  ]
+  ],
+  "editor.formatOnSave": true
 }
