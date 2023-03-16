@@ -1,13 +1,13 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
+
 import ApiError from '../error/ApiError';
 
-// TODO err: any
-function errorHandler (err: any, req: Request, res: Response, next: NextFunction) {
+function errorHandler(err: Error, req: Request, res: Response) {
   if (err instanceof ApiError) {
     return res.status(err.status).json({ message: err.message });
   }
 
   return res.status(500).json({ message: 'Unexpected error' });
-};
+}
 
-export { errorHandler };
+export default errorHandler;

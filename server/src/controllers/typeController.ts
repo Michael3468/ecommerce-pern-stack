@@ -1,5 +1,7 @@
+/* eslint-disable class-methods-use-this */
 // FIXME: import order rule
 import { Request, Response, NextFunction } from 'express';
+
 import ApiError from '../error/ApiError';
 import { Type } from '../models/models';
 
@@ -12,7 +14,10 @@ class TypeController {
     } catch (err) {
       next(ApiError.badRequest((err as ApiError).message));
     }
+
+    return res.status(404).json({ error: 'Resource not found' });
   }
+
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const types = await Type.findAll();
@@ -20,6 +25,8 @@ class TypeController {
     } catch (err) {
       next(ApiError.badRequest((err as ApiError).message));
     }
+
+    return res.status(404).json({ error: 'Resource not found' });
   }
 }
 
