@@ -11,7 +11,7 @@ class UserController {
   async check(req: Request, res: Response, next: NextFunction) {
     const { id } = req.query;
     if (!id) {
-      return next(ApiError.badRequest("'id' not specified"));
+      return next(ApiError.badRequest(new Error("'id' not specified")));
     }
     return res.json(id);
   }

@@ -31,7 +31,7 @@ class DeviceController {
         return res.json(device);
       }
     } catch (err) {
-      next(ApiError.badRequest((err as ApiError).message));
+      next(ApiError.badRequest(err as Error));
     }
 
     return res.status(404).json({ error: 'Could not create device' });
