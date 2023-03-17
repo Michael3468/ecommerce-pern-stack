@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from 'express';
 import { UploadedFile } from 'express-fileupload';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// import { v4 as createUuid } from 'uuid'; // TODO del uuid from package.json
 
 import ApiError from '../error/ApiError';
 import { Device } from '../models/models';
