@@ -23,7 +23,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
     "auto-changelog": "^2.4.0",
