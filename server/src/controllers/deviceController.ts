@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 
 import ApiError from '../error/ApiError';
 import { Device } from '../models/models';
+import getMd5FileName from '../utils/getMd5FileName';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,10 +24,7 @@ class DeviceController {
       const { img } = (req as unknown as TRequest).files || null;
 
       if (img) {
-        // TODO: move to libs getMd5FileName(imgFile: UploadedFile) +
-        const fileExtension = img.name.split('.').pop();
-        const fileName = `${img.md5}.${fileExtension}`;
-        // TODO: move to libs getMd5FileName(imgFile: UploadedFile) -
+        const fileName = getMd5FileName(img);
         img.mv(path.resolve(__dirname, '../../static', fileName));
 
         const device = await Device.create({ name, price, brandId, typeId, img: fileName });
