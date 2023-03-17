@@ -60,6 +60,9 @@
           "ignoreCase": true
         }
       }
-    ]
+    ],
+
+    "object-curly-newline": "off",
+    "lines-between-class-members": "off"
   }
 }

@@ -1,3 +1,17 @@
+type TSequelizeUniqueConstraintError = {
+  errors: Array<{
+    message: string;
+    type: string;
+    path: string;
+    value: string;
+    origin: string;
+    instance: string[];
+    validatorKey: string;
+    validatorName: string | null;
+    validatorArgs: string[];
+  }>;
+};
+
 class ApiError extends Error {
   status: number;
   message: string;
@@ -8,16 +22,21 @@ class ApiError extends Error {
     this.message = message;
   }
 
-  static badRequest(message: string) {
-    return new ApiError(404, message);
+  static badRequest(error: Error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      const errorMessage = (error as unknown as TSequelizeUniqueConstraintError).errors[0].message;
+      return new ApiError(404, errorMessage);
+    }
+
+    return new ApiError(404, error.message);
   }
 
-  static internal(message: string) {
-    return new ApiError(500, message);
+  static internal(error: Error) {
+    return new ApiError(500, error.message);
   }
 
-  static forbidden(message: string) {
-    return new ApiError(403, message);
+  static forbidden(error: Error) {
+    return new ApiError(403, error.message);
   }
 }
 
