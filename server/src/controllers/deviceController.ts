@@ -11,17 +11,17 @@ import getMd5FileName from '../utils/getMd5FileName';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-type TRequest = {
+interface IRequest extends Request {
   files: {
     img: UploadedFile;
   };
-};
+}
 
 class DeviceController {
-  async create(req: Request, res: Response, next: NextFunction) {
+  async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
       const { name, price, brandId, typeId, info } = req.body;
-      const { img } = (req as unknown as TRequest).files || null;
+      const { img } = (req as IRequest).files || null;
 
       if (img) {
         const fileName = getMd5FileName(img);
@@ -34,12 +34,10 @@ class DeviceController {
       next(ApiError.badRequest(err as Error));
     }
 
-    return res
-      .status(404)
-      .json({
-        message: 'Error: Data violates a unique constraint',
-        error: 'Could not create device',
-      });
+    return res.status(404).json({
+      message: 'Error: Data violates a unique constraint',
+      error: 'Could not create device',
+    });
   }
 
   async getAll(req: Request, res: Response) {}
