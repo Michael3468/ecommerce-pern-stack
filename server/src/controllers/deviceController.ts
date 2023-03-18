@@ -34,7 +34,12 @@ class DeviceController {
       next(ApiError.badRequest(err as Error));
     }
 
-    return res.status(404).json({ error: 'Could not create device' });
+    return res
+      .status(404)
+      .json({
+        message: 'Error: Data violates a unique constraint',
+        error: 'Could not create device',
+      });
   }
 
   async getAll(req: Request, res: Response) {}
