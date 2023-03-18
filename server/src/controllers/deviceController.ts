@@ -40,9 +40,9 @@ class DeviceController {
     });
   }
 
-  async getAll(req: Request, res: Response) {}
+  async getAll(req: Request, res: Response): Promise<void> {}
 
-  async getOne(req: Request, res: Response) {}
+  async getOne(req: Request, res: Response): Promise<void> {}
 }
 
 export default DeviceController;

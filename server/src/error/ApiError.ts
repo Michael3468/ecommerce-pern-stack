@@ -10,7 +10,7 @@ class ApiError extends Error {
     this.message = message;
   }
 
-  static badRequest(error: Error) {
+  static badRequest(error: Error): ApiError {
     if (error instanceof UniqueConstraintError) {
       const errorMessage = error.errors[0].message;
       return new ApiError(404, errorMessage);
@@ -19,11 +19,11 @@ class ApiError extends Error {
     return new ApiError(404, error.message);
   }
 
-  static internal(error: Error) {
+  static internal(error: Error): ApiError {
     return new ApiError(500, error.message);
   }
 
-  static forbidden(error: Error) {
+  static forbidden(error: Error): ApiError {
     return new ApiError(403, error.message);
   }
 }
