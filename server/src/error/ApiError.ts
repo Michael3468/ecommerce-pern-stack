@@ -1,16 +1,4 @@
-type TSequelizeUniqueConstraintError = {
-  errors: Array<{
-    message: string;
-    type: string;
-    path: string;
-    value: string;
-    origin: string;
-    instance: string[];
-    validatorKey: string;
-    validatorName: string | null;
-    validatorArgs: string[];
-  }>;
-};
+import { UniqueConstraintError } from 'sequelize';
 
 class ApiError extends Error {
   status: number;
@@ -23,8 +11,8 @@ class ApiError extends Error {
   }
 
   static badRequest(error: Error) {
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      const errorMessage = (error as unknown as TSequelizeUniqueConstraintError).errors[0].message;
+    if (error instanceof UniqueConstraintError) {
+      const errorMessage = error.errors[0].message;
       return new ApiError(404, errorMessage);
     }
 
