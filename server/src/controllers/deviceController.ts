@@ -71,7 +71,25 @@ class DeviceController {
     return res.json(devices);
   }
 
-  async getOne(req: Request, res: Response): Promise<void> {}
+  async getOne(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const device = await Device.findOne({
+        where: { id },
+        include: [{ model: DeviceInfo, as: 'info' }],
+      });
+
+      if (!device) {
+        return res.status(404).json({ message: 'Device not found' });
+      }
+
+      return res.json(device);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
 }
 
 export default DeviceController;
