@@ -1,45 +1,45 @@
 /* eslint-disable class-methods-use-this */
 import { Request, Response, NextFunction } from 'express';
-import { UploadedFile } from 'express-fileupload';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 import ApiError from '../error/ApiError';
-import { Device } from '../models/models';
+import { Device, DeviceInfo } from '../models/models';
+import {
+  IDeviceInfoAttributes,
+  IDeviceControllerRequest,
+  TDeviceControllerGetAllRequest,
+  TDeviceControllerQueryParams,
+} from '../types';
 import getMd5FileName from '../utils/getMd5FileName';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-interface IRequest extends Request {
-  files: {
-    img: UploadedFile;
-  };
-}
-
-type TGetAllRequest = {
-  brandId?: number;
-  typeId?: number;
-  limit?: number;
-  page?: number;
-};
-
-type TQueryParams = {
-  brandId?: number;
-  typeId?: number;
-};
-
 class DeviceController {
   async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const { name, price, brandId, typeId, info } = req.body;
-      const { img } = (req as IRequest).files || null;
+      const { name, price, brandId, typeId } = req.body;
+      let { info } = req.body;
+      const { img } = (req as IDeviceControllerRequest).files || null;
 
       if (img) {
         const fileName = getMd5FileName(img);
         img.mv(path.resolve(__dirname, '../../static', fileName));
 
         const device = await Device.create({ name, price, brandId, typeId, img: fileName });
+
+        if (info) {
+          info = JSON.parse(info);
+          info.forEach((i: IDeviceInfoAttributes) =>
+            DeviceInfo.create({
+              title: i.title,
+              description: i.description,
+              deviceId: device.id,
+            }),
+          );
+        }
+
         return res.json(device);
       }
     } catch (err) {
@@ -54,10 +54,15 @@ class DeviceController {
 
   async getAll(req: Request, res: Response): Promise<Response> {
     const DEVICES_ON_PAGE = 10;
-    const { brandId, typeId, limit = DEVICES_ON_PAGE, page = 1 }: TGetAllRequest = req.query;
+    const {
+      brandId,
+      typeId,
+      limit = DEVICES_ON_PAGE,
+      page = 1,
+    }: TDeviceControllerGetAllRequest = req.query;
     const offset = page * limit - limit;
 
-    const queryParams: TQueryParams = {};
+    const queryParams: TDeviceControllerQueryParams = {};
     if (brandId) queryParams.brandId = brandId;
     if (typeId) queryParams.typeId = typeId;
 
