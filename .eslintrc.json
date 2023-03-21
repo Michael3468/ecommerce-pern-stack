@@ -63,6 +63,8 @@
     ],
 
     "object-curly-newline": "off",
-    "lines-between-class-members": "off"
+    "lines-between-class-members": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off"
   }
 }
