@@ -5,7 +5,7 @@ import ApiError from '../error/ApiError';
 import { Type } from '../models/models';
 
 class TypeController {
-  async create(req: Request, res: Response, next: NextFunction) {
+  async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
       const { name } = req.body;
       const type = await Type.create({ name });
@@ -17,7 +17,7 @@ class TypeController {
     return res.status(404).json({ error: 'Resource not found' });
   }
 
-  async getAll(req: Request, res: Response, next: NextFunction) {
+  async getAll(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
       const types = await Type.findAll();
       return res.json(types);

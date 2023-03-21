@@ -4,14 +4,14 @@ import { Request, Response, NextFunction } from 'express';
 import ApiError from '../error/ApiError';
 
 class UserController {
-  async registration(req: Request, res: Response) {}
+  async registration(req: Request, res: Response): Promise<void> {}
 
-  async login(req: Request, res: Response) {}
+  async login(req: Request, res: Response): Promise<void> {}
 
-  async check(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.query;
+  async check(req: Request, res: Response, next: NextFunction): Promise<Response> {
+    const id = req.query?.id ?? '';
     if (!id) {
-      return next(ApiError.badRequest(new Error("'id' not specified")));
+      next(ApiError.badRequest(new Error("'id' not specified")));
     }
     return res.json(id);
   }
