@@ -17,6 +17,18 @@ interface IRequest extends Request {
   };
 }
 
+type TGetAllRequest = {
+  brandId?: number;
+  typeId?: number;
+  limit?: number;
+  page?: number;
+};
+
+type TQueryParams = {
+  brandId?: number;
+  typeId?: number;
+};
+
 class DeviceController {
   async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
@@ -40,7 +52,19 @@ class DeviceController {
     });
   }
 
-  async getAll(req: Request, res: Response): Promise<void> {}
+  async getAll(req: Request, res: Response): Promise<Response> {
+    const DEVICES_ON_PAGE = 10;
+    const { brandId, typeId, limit = DEVICES_ON_PAGE, page = 1 }: TGetAllRequest = req.query;
+    const offset = page * limit - limit;
+
+    const queryParams: TQueryParams = {};
+    if (brandId) queryParams.brandId = brandId;
+    if (typeId) queryParams.typeId = typeId;
+
+    const devices = await Device.findAndCountAll({ where: queryParams, limit, offset });
+
+    return res.json(devices);
+  }
 
   async getOne(req: Request, res: Response): Promise<void> {}
 }
