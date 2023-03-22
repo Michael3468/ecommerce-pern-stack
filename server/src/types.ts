@@ -12,5 +12,5 @@ export {
   IDeviceInfoAttributes,
   IDeviceControllerRequest,
   TDeviceControllerGetAllRequest,
-  TDeviceControllerQueryParams
+  TDeviceControllerQueryParams,
 };
