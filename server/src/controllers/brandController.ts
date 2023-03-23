@@ -11,7 +11,7 @@ class BrandController {
       const brand = await Brand.create({ name });
       return res.json(brand);
     } catch (err) {
-      next(ApiError.badRequest(err as Error));
+      next(ApiError.badRequest('Could not create brand', err as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });
@@ -22,7 +22,7 @@ class BrandController {
       const brands = await Brand.findAll();
       return res.json(brands);
     } catch (err) {
-      next(ApiError.badRequest(err as Error));
+      next(ApiError.badRequest('Could not get all brands', err as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });

@@ -3,9 +3,11 @@ import {
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
 } from './controllers/types';
-import { IDevice, IDeviceAttributes, IDeviceInfo, IDeviceInfoAttributes } from './models/types';
+import { IUser, IUserAttributes, IDevice, IDeviceAttributes, IDeviceInfo, IDeviceInfoAttributes } from './models/types';
 
 export {
+  IUser,
+  IUserAttributes,
   IDevice,
   IDeviceAttributes,
   IDeviceInfo,
