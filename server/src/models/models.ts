@@ -10,6 +10,7 @@ import {
   IDeviceInfoAttributes,
 } from './types';
 
+// TODO add all types
 const User = sequelize.define<IUser, IUserAttributes>('user', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING, unique: true },
