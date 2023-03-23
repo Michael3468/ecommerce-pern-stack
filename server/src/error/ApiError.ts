@@ -16,11 +16,11 @@ class ApiError extends Error {
   static badRequest(message: string, error?: Error): ApiError {
     if (error instanceof UniqueConstraintError) {
       const errorMessage = error.errors[0].message;
-      return new ApiError(404, errorMessage);
+      return new ApiError(404, errorMessage, error);
     }
 
     if (error instanceof Error) {
-      return new ApiError(404, error.message);
+      return new ApiError(404, error.message, error);
     }
 
     return new ApiError(404, message);
@@ -28,7 +28,7 @@ class ApiError extends Error {
 
   static internal(message: string, error?: Error): ApiError {
     if (error instanceof Error) {
-      return new ApiError(500, error.message);
+      return new ApiError(500, error.message, error);
     }
 
     return new ApiError(500, message);
@@ -36,7 +36,7 @@ class ApiError extends Error {
 
   static forbidden(message: string, error: Error): ApiError {
     if (error instanceof Error) {
-      return new ApiError(403, error.message);
+      return new ApiError(403, error.message, error);
     }
 
     return new ApiError(403, message);

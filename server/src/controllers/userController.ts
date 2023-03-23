@@ -11,6 +11,7 @@ const generateJwt = (id: number, email: string, role: string): string =>
 
 class UserController {
   async registration(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    // TODO add types
     const { email, password, role } = req.body;
     if (!email || !password) {
       return next(ApiError.badRequest('incorrect email or password'));
@@ -31,6 +32,7 @@ class UserController {
 
   async login(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
+      // TODO add types
       const { email, password } = req.body;
       const user = await User.findOne({ where: { email } });
       if (!user) {
@@ -45,7 +47,7 @@ class UserController {
       const token = generateJwt(user.id, user.email, user.role);
       return res.json({ token });
     } catch (err) {
-      return next(ApiError.internal((err as Error).message));
+      return next(ApiError.internal((err as Error).message, err as Error));
     }
   }
 
