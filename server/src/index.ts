@@ -7,7 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import sequelize from './db';
-import errorHandler from './middleware/ErrorHandlingMiddleware';
+import errorHandler from './middleware/ErrorHandlerMiddleware';
 import router from './routes/index';
 
 const __filename = fileURLToPath(import.meta.url);
