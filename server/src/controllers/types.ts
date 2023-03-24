@@ -1,20 +1,36 @@
 import { Request } from 'express';
 import { UploadedFile } from 'express-fileupload';
 
-export interface IDeviceControllerRequest extends Request {
+// TODO: rename IDeviceControllerRequest?
+interface IDeviceControllerRequest extends Request {
   files: {
     img: UploadedFile;
   };
 }
 
-export type TDeviceControllerGetAllRequest = {
+interface IUserControllerCheckRequest extends Request {
+  user: {
+    id: number;
+    email: string;
+    role: string;
+  };
+}
+
+type TDeviceControllerGetAllRequest = {
   brandId?: number;
   typeId?: number;
   limit?: number;
   page?: number;
 };
 
-export type TDeviceControllerQueryParams = {
+type TDeviceControllerQueryParams = {
   brandId?: number;
   typeId?: number;
+};
+
+export {
+  IDeviceControllerRequest,
+  IUserControllerCheckRequest,
+  TDeviceControllerGetAllRequest,
+  TDeviceControllerQueryParams,
 };

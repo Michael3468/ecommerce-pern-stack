@@ -5,13 +5,14 @@ import jwt from 'jsonwebtoken';
 
 import ApiError from '../error/ApiError';
 import { User, Basket } from '../models/models';
+import { IUserControllerCheckRequest } from './types';
 
+// TODO decrease 24h after testing
 const generateJwt = (id: number, email: string, role: string): string =>
   jwt.sign({ id, email, role }, process.env.SECRET_KEY as string, { expiresIn: '24h' });
 
 class UserController {
   async registration(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
-    // TODO add types
     const { email, password, role } = req.body;
     if (!email || !password) {
       return next(ApiError.badRequest('incorrect email or password'));
@@ -24,6 +25,7 @@ class UserController {
 
     const hashPassword = await bcrypt.hash(password, 5);
     const user = await User.create({ email, role, password: hashPassword });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const basket = await Basket.create({ userId: user.id });
     const token = generateJwt(user.id, user.email, user.role);
 
@@ -32,7 +34,6 @@ class UserController {
 
   async login(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      // TODO add types
       const { email, password } = req.body;
       const user = await User.findOne({ where: { email } });
       if (!user) {
@@ -51,12 +52,14 @@ class UserController {
     }
   }
 
-  async check(req: Request, res: Response, next: NextFunction): Promise<Response> {
-    const id = req.query?.id ?? '';
-    if (!id) {
-      next(ApiError.badRequest("'id' not specified"));
+  async check(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    try {
+      const { id, email, role } = (req as IUserControllerCheckRequest).user;
+      const token = generateJwt(id, email, role);
+      return res.json({ token });
+    } catch (error) {
+      return next(ApiError.badRequest('Could not generate token', error as Error));
     }
-    return res.json(id);
   }
 }
 
