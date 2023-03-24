@@ -3,14 +3,13 @@ import { UniqueConstraintError } from 'sequelize';
 class ApiError extends Error {
   status: number;
   message: string;
-  error?: Error;
+  cause?: Error;
 
   constructor(status: number, message: string, error?: Error) {
-    // TODO what params super can get here (cause)
     super(message);
     this.status = status;
     this.message = message;
-    this.error = error;
+    this.cause = error;
   }
 
   static badRequest(message: string, error?: Error): ApiError {
