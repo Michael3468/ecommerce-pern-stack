@@ -1,8 +1,7 @@
 import { Request } from 'express';
 import { UploadedFile } from 'express-fileupload';
 
-// TODO: rename IDeviceControllerRequest?
-interface IDeviceControllerRequest extends Request {
+interface IDeviceControllerCreateRequest extends Request {
   files: {
     img: UploadedFile;
   };
@@ -29,7 +28,7 @@ type TDeviceControllerQueryParams = {
 };
 
 export {
-  IDeviceControllerRequest,
+  IDeviceControllerCreateRequest,
   IUserControllerCheckRequest,
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,

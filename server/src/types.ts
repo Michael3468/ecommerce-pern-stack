@@ -1,5 +1,5 @@
 import {
-  IDeviceControllerRequest,
+  IDeviceControllerCreateRequest,
   IUserControllerCheckRequest,
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
@@ -18,7 +18,7 @@ export {
   ICheckAuthMiddlewareRequest,
   IDevice,
   IDeviceAttributes,
-  IDeviceControllerRequest,
+  IDeviceControllerCreateRequest,
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
   IDeviceInfo,

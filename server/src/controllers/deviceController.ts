@@ -7,12 +7,13 @@ import ApiError from '../error/ApiError';
 import { Device, DeviceInfo } from '../models/models';
 import {
   IDeviceInfoAttributes,
-  IDeviceControllerRequest,
+  IDeviceControllerCreateRequest,
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
 } from '../types';
 import getMd5FileName from '../utils/getMd5FileName';
 
+// TODO: move to utils?
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -21,12 +22,13 @@ class DeviceController {
     try {
       const { name, price, brandId, typeId } = req.body;
       let { info } = req.body;
-      const { img } = (req as IDeviceControllerRequest).files || null;
+      const { img } = (req as IDeviceControllerCreateRequest).files || null;
 
       if (img) {
         const fileName = getMd5FileName(img);
         img.mv(path.resolve(__dirname, '../../static', fileName));
 
+        // TODO add types
         const device = await Device.create({ name, price, brandId, typeId, img: fileName });
 
         if (info) {
@@ -87,6 +89,7 @@ class DeviceController {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
+      // TODO: return ApiError
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
