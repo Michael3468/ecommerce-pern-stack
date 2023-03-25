@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 import ApiError from '../error/ApiError';
 import { User, Basket } from '../models/models';
-import { IUserControllerCheckRequest } from './types';
+import { IUserControllerCheckRequest, IUserControllerRegistrationRequest } from './types';
 
 // TODO decrease 24h after testing
 const generateJwt = (id: number, email: string, role: string): string =>
@@ -13,7 +13,7 @@ const generateJwt = (id: number, email: string, role: string): string =>
 
 class UserController {
   async registration(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
-    const { email, password, role } = req.body;
+    const { email, password, role }: IUserControllerRegistrationRequest = req.body;
     if (!email || !password) {
       return next(ApiError.badRequest('incorrect email or password'));
     }

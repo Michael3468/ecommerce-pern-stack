@@ -17,6 +17,8 @@ export interface IDeviceAttributes {
   price: number;
   rating?: number;
   img?: string;
+  brandId?: number;
+  typeId?: number;
 }
 
 export interface IDevice extends IDeviceAttributes, Model {

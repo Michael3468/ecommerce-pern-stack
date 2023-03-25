@@ -10,6 +10,7 @@ import {
   IDeviceControllerCreateRequest,
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
+  IDeviceAttributes,
 } from '../types';
 import getMd5FileName from '../utils/getMd5FileName';
 
@@ -20,7 +21,7 @@ const __dirname = path.dirname(__filename);
 class DeviceController {
   async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const { name, price, brandId, typeId } = req.body;
+      const { name, price, brandId, typeId }: IDeviceAttributes = req.body;
       let { info } = req.body;
       const { img } = (req as IDeviceControllerCreateRequest).files || null;
 
@@ -28,7 +29,6 @@ class DeviceController {
         const fileName = getMd5FileName(img);
         img.mv(path.resolve(__dirname, '../../static', fileName));
 
-        // TODO add types
         const device = await Device.create({ name, price, brandId, typeId, img: fileName });
 
         if (info) {

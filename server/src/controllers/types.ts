@@ -15,6 +15,10 @@ interface IUserControllerCheckRequest extends Request {
   };
 }
 
+type TBrandControllerCreateRequest = {
+  name: string;
+};
+
 type TDeviceControllerGetAllRequest = {
   brandId?: number;
   typeId?: number;
@@ -27,9 +31,22 @@ type TDeviceControllerQueryParams = {
   typeId?: number;
 };
 
+type TTypeControllerCreateRequest = {
+  name: string;
+};
+
+type IUserControllerRegistrationRequest = {
+  email: string,
+  role: string,
+  password: string,
+};
+
 export {
   IDeviceControllerCreateRequest,
   IUserControllerCheckRequest,
+  TBrandControllerCreateRequest,
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
+  TTypeControllerCreateRequest,
+  IUserControllerRegistrationRequest,
 };

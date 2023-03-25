@@ -3,14 +3,16 @@ import { Request, Response, NextFunction } from 'express';
 
 import ApiError from '../error/ApiError';
 import { Type } from '../models/models';
+import { TTypeControllerCreateRequest } from './types';
 
 class TypeController {
   async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const { name } = req.body;
+      const { name }: TTypeControllerCreateRequest = req.body;
       const type = await Type.create({ name });
       return res.json(type);
     } catch (err) {
+      // TODO: add return?
       next(ApiError.badRequest('Could not create type', err as Error));
     }
 
