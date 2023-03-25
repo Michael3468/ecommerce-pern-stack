@@ -3,15 +3,17 @@ import { Request, Response, NextFunction } from 'express';
 
 import ApiError from '../error/ApiError';
 import { Type } from '../models/models';
+import { TTypeControllerCreateRequest } from './types';
 
 class TypeController {
   async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const { name } = req.body;
+      const { name }: TTypeControllerCreateRequest = req.body;
       const type = await Type.create({ name });
       return res.json(type);
     } catch (err) {
-      next(ApiError.badRequest(err as Error));
+      // TODO: add return?
+      next(ApiError.badRequest('Could not create type', err as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });
@@ -22,7 +24,7 @@ class TypeController {
       const types = await Type.findAll();
       return res.json(types);
     } catch (err) {
-      next(ApiError.badRequest(err as Error));
+      next(ApiError.badRequest('Could not create all types', err as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });

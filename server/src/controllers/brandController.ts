@@ -3,15 +3,16 @@ import { Request, Response, NextFunction } from 'express';
 
 import ApiError from '../error/ApiError';
 import { Brand } from '../models/models';
+import { TBrandControllerCreateRequest } from './types';
 
 class BrandController {
   async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const { name } = req.body;
+      const { name }: TBrandControllerCreateRequest = req.body;
       const brand = await Brand.create({ name });
       return res.json(brand);
     } catch (err) {
-      next(ApiError.badRequest(err as Error));
+      next(ApiError.badRequest('Could not create brand', err as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });
@@ -22,7 +23,7 @@ class BrandController {
       const brands = await Brand.findAll();
       return res.json(brands);
     } catch (err) {
-      next(ApiError.badRequest(err as Error));
+      next(ApiError.badRequest('Could not get all brands', err as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });

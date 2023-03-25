@@ -7,21 +7,23 @@ import ApiError from '../error/ApiError';
 import { Device, DeviceInfo } from '../models/models';
 import {
   IDeviceInfoAttributes,
-  IDeviceControllerRequest,
+  IDeviceControllerCreateRequest,
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
+  IDeviceAttributes,
 } from '../types';
 import getMd5FileName from '../utils/getMd5FileName';
 
+// TODO: move to utils?
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 class DeviceController {
   async create(req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const { name, price, brandId, typeId } = req.body;
+      const { name, price, brandId, typeId }: IDeviceAttributes = req.body;
       let { info } = req.body;
-      const { img } = (req as IDeviceControllerRequest).files || null;
+      const { img } = (req as IDeviceControllerCreateRequest).files || null;
 
       if (img) {
         const fileName = getMd5FileName(img);
@@ -43,7 +45,7 @@ class DeviceController {
         return res.json(device);
       }
     } catch (err) {
-      next(ApiError.badRequest(err as Error));
+      next(ApiError.badRequest('Could not create device', err as Error));
     }
 
     return res.status(404).json({
@@ -87,6 +89,7 @@ class DeviceController {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
+      // TODO: return ApiError
       return res.status(500).json({ message: 'Internal server error' });
     }
   }

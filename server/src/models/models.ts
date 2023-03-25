@@ -1,9 +1,17 @@
 import { DataTypes } from 'sequelize';
 
 import sequelize from '../db';
-import { IDevice, IDeviceAttributes, IDeviceInfo, IDeviceInfoAttributes } from './types';
+import {
+  IUser,
+  IUserAttributes,
+  IDevice,
+  IDeviceAttributes,
+  IDeviceInfo,
+  IDeviceInfoAttributes,
+} from './types';
 
-const User = sequelize.define('user', {
+// TODO add all types
+const User = sequelize.define<IUser, IUserAttributes>('user', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING, unique: true },
   password: { type: DataTypes.STRING },

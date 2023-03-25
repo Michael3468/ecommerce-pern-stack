@@ -3,28 +3,42 @@ import { UniqueConstraintError } from 'sequelize';
 class ApiError extends Error {
   status: number;
   message: string;
+  cause?: Error;
 
-  constructor(status: number, message: string) {
-    super();
+  constructor(status: number, message: string, error?: Error) {
+    super(message);
     this.status = status;
     this.message = message;
+    this.cause = error;
   }
 
-  static badRequest(error: Error): ApiError {
+  static badRequest(message: string, error?: Error): ApiError {
     if (error instanceof UniqueConstraintError) {
       const errorMessage = error.errors[0].message;
-      return new ApiError(404, errorMessage);
+      return new ApiError(404, errorMessage, error);
     }
 
-    return new ApiError(404, error.message);
+    if (error instanceof Error) {
+      return new ApiError(404, error.message, error);
+    }
+
+    return new ApiError(404, message);
   }
 
-  static internal(error: Error): ApiError {
-    return new ApiError(500, error.message);
+  static internal(message: string, error?: Error): ApiError {
+    if (error instanceof Error) {
+      return new ApiError(500, error.message, error);
+    }
+
+    return new ApiError(500, message);
   }
 
-  static forbidden(error: Error): ApiError {
-    return new ApiError(403, error.message);
+  static forbidden(message: string, error: Error): ApiError {
+    if (error instanceof Error) {
+      return new ApiError(403, error.message, error);
+    }
+
+    return new ApiError(403, message);
   }
 }
 
