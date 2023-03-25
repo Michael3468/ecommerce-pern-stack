@@ -1,9 +1,14 @@
 import { Request } from 'express';
 import { Jwt } from 'jsonwebtoken';
 
+type TRole = 'ADMIN';
+
 interface ICheckAuthMiddlewareRequest extends Request {
   user: Jwt | null;
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export { ICheckAuthMiddlewareRequest };
+interface ICheckRoleMiddlewareRequest extends Request {
+  user: Jwt | null;
+}
+
+export { TRole, ICheckAuthMiddlewareRequest, ICheckRoleMiddlewareRequest };

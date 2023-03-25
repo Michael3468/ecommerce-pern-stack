@@ -7,7 +7,7 @@ import {
   TTypeControllerCreateRequest,
   IUserControllerRegistrationRequest,
 } from './controllers/types';
-import { ICheckAuthMiddlewareRequest } from './middleware/types';
+import { TRole, ICheckAuthMiddlewareRequest, ICheckRoleMiddlewareRequest } from './middleware/types';
 import {
   IDevice,
   IDeviceAttributes,
@@ -22,8 +22,10 @@ export {
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
   TTypeControllerCreateRequest,
+  TRole,
   IUserControllerRegistrationRequest,
   ICheckAuthMiddlewareRequest,
+  ICheckRoleMiddlewareRequest,
   IDevice,
   IDeviceAttributes,
   IDeviceControllerCreateRequest,
