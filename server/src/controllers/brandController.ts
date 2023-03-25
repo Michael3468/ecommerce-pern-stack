@@ -11,8 +11,8 @@ class BrandController {
       const { name }: TBrandControllerCreateRequest = req.body;
       const brand = await Brand.create({ name });
       return res.json(brand);
-    } catch (err) {
-      next(ApiError.badRequest('Could not create brand', err as Error));
+    } catch (error) {
+      next(ApiError.badRequest('Could not create brand', error as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });
@@ -22,8 +22,8 @@ class BrandController {
     try {
       const brands = await Brand.findAll();
       return res.json(brands);
-    } catch (err) {
-      next(ApiError.badRequest('Could not get all brands', err as Error));
+    } catch (error) {
+      next(ApiError.badRequest('Could not get all brands', error as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });

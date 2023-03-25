@@ -47,8 +47,8 @@ class UserController {
 
       const token = generateJwt(user.id, user.email, user.role);
       return res.json({ token });
-    } catch (err) {
-      return next(ApiError.internal((err as Error).message, err as Error));
+    } catch (error) {
+      return next(ApiError.internal((error as Error).message, error as Error));
     }
   }
 

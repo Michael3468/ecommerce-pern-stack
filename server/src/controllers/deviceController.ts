@@ -44,10 +44,12 @@ class DeviceController {
 
         return res.json(device);
       }
-    } catch (err) {
-      next(ApiError.badRequest('Could not create device', err as Error));
+    } catch (error) {
+      // TODO: return
+      next(ApiError.badRequest('Could not create device', error as Error));
     }
 
+    // TODO: return?
     return res.status(404).json({
       message: 'Error: Data violates a unique constraint',
       error: 'Could not create device',
@@ -86,9 +88,9 @@ class DeviceController {
       }
 
       return res.json(device);
-    } catch (err) {
+    } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(err);
+      console.error(error);
       // TODO: return ApiError
       return res.status(500).json({ message: 'Internal server error' });
     }

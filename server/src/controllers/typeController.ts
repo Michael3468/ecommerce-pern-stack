@@ -11,9 +11,9 @@ class TypeController {
       const { name }: TTypeControllerCreateRequest = req.body;
       const type = await Type.create({ name });
       return res.json(type);
-    } catch (err) {
+    } catch (error) {
       // TODO: add return?
-      next(ApiError.badRequest('Could not create type', err as Error));
+      next(ApiError.badRequest('Could not create type', error as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });
@@ -23,8 +23,8 @@ class TypeController {
     try {
       const types = await Type.findAll();
       return res.json(types);
-    } catch (err) {
-      next(ApiError.badRequest('Could not create all types', err as Error));
+    } catch (error) {
+      next(ApiError.badRequest('Could not create all types', error as Error));
     }
 
     return res.status(404).json({ error: 'Resource not found' });
