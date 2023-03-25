@@ -1,16 +1,37 @@
 import {
-  IDeviceControllerRequest,
+  IDeviceControllerCreateRequest,
+  IUserControllerCheckRequest,
+  TBrandControllerCreateRequest,
   TDeviceControllerGetAllRequest,
   TDeviceControllerQueryParams,
+  TTypeControllerCreateRequest,
+  IUserControllerRegistrationRequest,
 } from './controllers/types';
-import { IDevice, IDeviceAttributes, IDeviceInfo, IDeviceInfoAttributes } from './models/types';
-
-export {
+import { TRole, ICheckAuthMiddlewareRequest, ICheckRoleMiddlewareRequest } from './middleware/types';
+import {
   IDevice,
   IDeviceAttributes,
   IDeviceInfo,
   IDeviceInfoAttributes,
-  IDeviceControllerRequest,
+  IUser,
+  IUserAttributes,
+} from './models/types';
+
+export {
+  TBrandControllerCreateRequest,
   TDeviceControllerGetAllRequest,
-  TDeviceControllerQueryParams
+  TDeviceControllerQueryParams,
+  TTypeControllerCreateRequest,
+  TRole,
+  IUserControllerRegistrationRequest,
+  ICheckAuthMiddlewareRequest,
+  ICheckRoleMiddlewareRequest,
+  IDevice,
+  IDeviceAttributes,
+  IDeviceControllerCreateRequest,
+  IDeviceInfo,
+  IDeviceInfoAttributes,
+  IUser,
+  IUserAttributes,
+  IUserControllerCheckRequest,
 };
