@@ -7,9 +7,8 @@ import ApiError from '../error/ApiError';
 import { User, Basket } from '../models/models';
 import { IUserControllerCheckRequest, IUserControllerRegistrationRequest } from './types';
 
-// TODO decrease 24h after testing
 const generateJwt = (id: number, email: string, role: string): string =>
-  jwt.sign({ id, email, role }, process.env.SECRET_KEY as string, { expiresIn: '24h' });
+  jwt.sign({ id, email, role }, process.env.SECRET_KEY as string, { expiresIn: '1h' });
 
 class UserController {
   async registration(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
