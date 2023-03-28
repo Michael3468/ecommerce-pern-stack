@@ -51,7 +51,7 @@ class DeviceController {
 
       return res.json(device);
     } catch (error) {
-      return next(ApiError.badRequest('Could not create device', error as Error));
+      return next(ApiError.badRequest({ error: error as Error }));
     }
   }
 
@@ -74,7 +74,7 @@ class DeviceController {
 
       return res.json(devices);
     } catch (error) {
-      return next(ApiError.internal('Could not get all devices', error as Error));
+      return next(ApiError.internal({ error: error as Error }));
     }
   }
 
@@ -92,7 +92,7 @@ class DeviceController {
 
       return res.json(device);
     } catch (error) {
-      return next(ApiError.internal('Internal server error', error as Error));
+      return next(ApiError.internal({ error: error as Error }));
     }
   }
 }

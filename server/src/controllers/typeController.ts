@@ -12,7 +12,7 @@ class TypeController {
       const type = await Type.create({ name });
       return res.json(type);
     } catch (error) {
-      return next(ApiError.badRequest('Could not create type', error as Error));
+      return next(ApiError.badRequest({ error: error as Error }));
     }
   }
 
@@ -21,7 +21,7 @@ class TypeController {
       const types = await Type.findAll();
       return res.json(types);
     } catch (error) {
-      return next(ApiError.internal('Could not get all types', error as Error));
+      return next(ApiError.internal({ error: error as Error }));
     }
   }
 }

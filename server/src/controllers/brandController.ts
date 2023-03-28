@@ -12,7 +12,7 @@ class BrandController {
       const brand = await Brand.create({ name });
       return res.json(brand);
     } catch (error) {
-      return next(ApiError.badRequest('Could not create brand', error as Error));
+      return next(ApiError.badRequest({ error: error as Error }));
     }
   }
 
@@ -21,7 +21,7 @@ class BrandController {
       const brands = await Brand.findAll();
       return res.json(brands);
     } catch (error) {
-      return next(ApiError.internal('Could not get all brands', error as Error));
+      return next(ApiError.internal({ error: error as Error }));
     }
   }
 }

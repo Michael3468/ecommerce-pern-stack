@@ -24,7 +24,7 @@ function checkAuth(req: Request, res: Response, next: NextFunction): Response | 
     (req as ICheckAuthMiddlewareRequest).user = decoded as Jwt;
     return next();
   } catch (error) {
-    return next(ApiError.forbidden('Not authorized', error as Error));
+    return next(ApiError.forbidden({ error: error as Error }));
   }
 }
 
