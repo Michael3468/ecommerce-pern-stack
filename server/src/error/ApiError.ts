@@ -2,16 +2,18 @@ import { UniqueConstraintError } from 'sequelize';
 
 class ApiError extends Error {
   status: number;
-  message: string;
   cause?: Error;
 
   constructor(status: number, message: string, error?: Error) {
     super(message);
     this.status = status;
-    this.message = message;
     this.cause = error;
   }
 
+  /**
+   * TODO Make the `message` parameter optional with a `?` sign
+   * for the `catch` block where it is not needed
+   */
   static badRequest(message: string, error?: Error): ApiError {
     if (error instanceof UniqueConstraintError) {
       const errorMessage = error.errors[0].message;
