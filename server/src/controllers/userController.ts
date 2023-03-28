@@ -12,23 +12,27 @@ const generateJwt = (id: number, email: string, role: string): string =>
 
 class UserController {
   async registration(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
-    const { email, password, role }: IUserControllerRegistrationRequest = req.body;
-    if (!email || !password) {
-      return next(ApiError.badRequest('incorrect email or password'));
+    try {
+      const { email, password, role }: IUserControllerRegistrationRequest = req.body;
+      if (!email || !password) {
+        return next(ApiError.badRequest('incorrect email or password'));
+      }
+
+      const candidate = await User.findOne({ where: { email } });
+      if (candidate) {
+        return next(ApiError.badRequest('user with this email already exists'));
+      }
+
+      const hashPassword = await bcrypt.hash(password, 5);
+      const user = await User.create({ email, role, password: hashPassword });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const basket = await Basket.create({ userId: user.id });
+      const token = generateJwt(user.id, user.email, user.role);
+
+      return res.json({ token });
+    } catch (error) {
+      return next(ApiError.forbidden('Could not register', error as Error));
     }
-
-    const candidate = await User.findOne({ where: { email } });
-    if (candidate) {
-      return next(ApiError.badRequest('user with this email already exists'));
-    }
-
-    const hashPassword = await bcrypt.hash(password, 5);
-    const user = await User.create({ email, role, password: hashPassword });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const basket = await Basket.create({ userId: user.id });
-    const token = generateJwt(user.id, user.email, user.role);
-
-    return res.json({ token });
   }
 
   async login(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
@@ -36,18 +40,19 @@ class UserController {
       const { email, password } = req.body;
       const user = await User.findOne({ where: { email } });
       if (!user) {
-        return next(ApiError.internal('User not found'));
+        return next(ApiError.badRequest('User not found'));
       }
 
       const isValidPassword = bcrypt.compareSync(password, user.password);
       if (!isValidPassword) {
-        return next(ApiError.internal('Password is not correct'));
+        return next(ApiError.badRequest('Password is not correct'));
       }
 
       const token = generateJwt(user.id, user.email, user.role);
       return res.json({ token });
     } catch (error) {
-      return next(ApiError.internal((error as Error).message, error as Error));
+      // TODO (err).message
+      return next(ApiError.forbidden((error as Error).message, error as Error));
     }
   }
 
@@ -57,7 +62,7 @@ class UserController {
       const token = generateJwt(id, email, role);
       return res.json({ token });
     } catch (error) {
-      return next(ApiError.badRequest('Could not generate token', error as Error));
+      return next(ApiError.forbidden('Could not generate token', error as Error));
     }
   }
 }

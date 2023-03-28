@@ -29,7 +29,7 @@ function checkRole(role: TRole) {
       (req as ICheckRoleMiddlewareRequest).user = decoded as Jwt;
       return next();
     } catch (error) {
-      return next(ApiError.badRequest('Could not check role', error as Error));
+      return next(ApiError.forbidden('Could not check role', error as Error));
     }
   };
 }
