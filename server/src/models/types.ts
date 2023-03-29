@@ -1,17 +1,47 @@
 import { Model } from 'sequelize';
 
-export interface IUserAttributes {
+interface IUserAttributes {
   id: number;
   email: string;
   password: string;
   role: string;
 }
+interface IUser extends IUserAttributes, Model {}
 
-export interface IUser extends IUserAttributes, Model {
-  description?: string;
+interface IBasketAttributes {
+  id: number;
 }
 
-export interface IDeviceAttributes {
+interface IBasket extends IBasketAttributes, Model {}
+
+interface IBasketDeviceAttributes {
+  id: number;
+}
+
+interface IBasketDevice extends IBasketAttributes, Model {}
+
+interface ITypeAttributes {
+  id: number;
+  name: string;
+}
+
+interface IType extends ITypeAttributes, Model {}
+
+interface IBrandAttributes {
+  id: number;
+  name: string;
+}
+
+interface IBrand extends IBrandAttributes, Model {}
+
+interface IRatingAttributes {
+  id: number;
+  rate: number;
+}
+
+interface IRating extends IRatingAttributes, Model {}
+
+interface IDeviceAttributes {
   id: number;
   name: string;
   price: number;
@@ -21,14 +51,39 @@ export interface IDeviceAttributes {
   typeId?: number;
 }
 
-export interface IDevice extends IDeviceAttributes, Model {
-  description?: string;
-}
+interface IDevice extends IDeviceAttributes, Model {}
 
-export interface IDeviceInfoAttributes {
+interface IDeviceInfoAttributes {
   id: number;
   title: string;
   description: string;
 }
 
-export interface IDeviceInfo extends IDeviceInfoAttributes, Model {}
+interface IDeviceInfo extends IDeviceInfoAttributes, Model {}
+
+interface ITypeBrandAttributes {
+  id: number;
+}
+
+interface ITypeBrand extends ITypeAttributes, Model {}
+
+export {
+  IUser,
+  IUserAttributes,
+  IBasket,
+  IBasketAttributes,
+  IBasketDevice,
+  IBasketDeviceAttributes,
+  IType,
+  ITypeAttributes,
+  IBrand,
+  IBrandAttributes,
+  IRating,
+  IRatingAttributes,
+  IDevice,
+  IDeviceAttributes,
+  IDeviceInfo,
+  IDeviceInfoAttributes,
+  ITypeBrand,
+  ITypeBrandAttributes,
+};

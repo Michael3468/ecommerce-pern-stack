@@ -4,14 +4,13 @@ import cors from 'cors';
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 import sequelize from './db';
 import errorHandler from './middleware/ErrorHandlerMiddleware';
 import router from './routes/index';
+import getDirName from './utils/getDirName';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = getDirName(import.meta.url);
 
 const PORT = process.env.PORT || 5000;
 
@@ -28,10 +27,8 @@ const start = async () => {
     await sequelize.authenticate();
     await sequelize.sync();
 
-    // eslint-disable-next-line no-console
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.log(error);
   }
 };

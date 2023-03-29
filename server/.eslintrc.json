@@ -1,0 +1,7 @@
+{
+  "extends": "../.eslintrc.json",
+  "rules": {
+    "class-methods-use-this":"off",
+    "no-console":"off"
+  }
+}
