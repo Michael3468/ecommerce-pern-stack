@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import { Request, Response, NextFunction } from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 import ApiError from '../error/ApiError';
 import { Device, DeviceInfo } from '../models/models';
@@ -13,11 +12,10 @@ import {
   IDeviceAttributes,
   IDevice,
 } from '../types';
+import getDirName from '../utils/getDirName';
 import getMd5FileName from '../utils/getMd5FileName';
 
-// TODO: move to utils?
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = getDirName(import.meta.url);
 
 class DeviceController {
   async create(req: Request, res: Response, next: NextFunction): Promise<Response | void> {

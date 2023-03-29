@@ -4,14 +4,13 @@ import cors from 'cors';
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 import sequelize from './db';
 import errorHandler from './middleware/ErrorHandlerMiddleware';
 import router from './routes/index';
+import getDirName from './utils/getDirName';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = getDirName(import.meta.url);
 
 const PORT = process.env.PORT || 5000;
 
