@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';

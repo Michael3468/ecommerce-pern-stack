@@ -4,7 +4,6 @@ import ApiError from '../error/ApiError';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function errorHandler(error: Error, req: Request, res: Response, next: NextFunction) {
-  // eslint-disable-next-line no-console
   console.error(error);
 
   if (error instanceof ApiError) {

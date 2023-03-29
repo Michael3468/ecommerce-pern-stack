@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */ // TODO this rule to eslint?
 import { Request, Response, NextFunction } from 'express';
 
 import ApiError from '../error/ApiError';
