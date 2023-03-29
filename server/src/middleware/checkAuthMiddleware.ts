@@ -4,7 +4,7 @@ import jwt, { Jwt } from 'jsonwebtoken';
 import ApiError from '../error/ApiError';
 import { ICheckAuthMiddlewareRequest } from './types';
 
-function checkAuth(req: Request, res: Response, next: NextFunction): void | Response {
+function checkAuth(req: Request, res: Response, next: NextFunction): Response | void {
   if (req.method === 'OPTIONS') {
     next();
   }
@@ -24,7 +24,7 @@ function checkAuth(req: Request, res: Response, next: NextFunction): void | Resp
     (req as ICheckAuthMiddlewareRequest).user = decoded as Jwt;
     return next();
   } catch (error) {
-    return next(ApiError.badRequest('Not authorized', error as Error));
+    return next(ApiError.forbidden({ error: error as Error }));
   }
 }
 

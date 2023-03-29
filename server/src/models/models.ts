@@ -8,9 +8,20 @@ import {
   IDeviceAttributes,
   IDeviceInfo,
   IDeviceInfoAttributes,
+  IBasket,
+  IBasketAttributes,
+  IBasketDevice,
+  IBasketDeviceAttributes,
+  IType,
+  ITypeAttributes,
+  IBrand,
+  IBrandAttributes,
+  IRating,
+  IRatingAttributes,
+  ITypeBrand,
+  ITypeBrandAttributes,
 } from './types';
 
-// TODO add all types
 const User = sequelize.define<IUser, IUserAttributes>('user', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING, unique: true },
@@ -18,11 +29,11 @@ const User = sequelize.define<IUser, IUserAttributes>('user', {
   role: { type: DataTypes.STRING, defaultValue: 'USER' },
 });
 
-const Basket = sequelize.define('basket', {
+const Basket = sequelize.define<IBasket, IBasketAttributes>('basket', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-const BasketDevice = sequelize.define('basket_device', {
+const BasketDevice = sequelize.define<IBasketDevice, IBasketDeviceAttributes>('basket_device', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
@@ -34,17 +45,17 @@ const Device = sequelize.define<IDevice, IDeviceAttributes>('device', {
   img: { type: DataTypes.STRING, allowNull: false },
 });
 
-const Type = sequelize.define('type', {
+const Type = sequelize.define<IType, ITypeAttributes>('type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const Brand = sequelize.define('brand', {
+const Brand = sequelize.define<IBrand, IBrandAttributes>('brand', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const Rating = sequelize.define('rating', {
+const Rating = sequelize.define<IRating, IRatingAttributes>('rating', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   rate: { type: DataTypes.INTEGER, allowNull: false },
 });
@@ -55,7 +66,7 @@ const DeviceInfo = sequelize.define<IDeviceInfo, IDeviceInfoAttributes>('device_
   description: { type: DataTypes.STRING, allowNull: false },
 });
 
-const TypeBrand = sequelize.define('type_brand', {
+const TypeBrand = sequelize.define<ITypeBrand, ITypeBrandAttributes>('type_brand', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
