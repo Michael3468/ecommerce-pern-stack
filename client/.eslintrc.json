@@ -69,6 +69,7 @@
     "lines-between-class-members": "off",
     "implicit-arrow-linebreak": "off",
     "function-paren-newline": "off",
+    "operator-linebreak": "off",
 
     "react/jsx-filename-extension": ["warn", { "extensions": [".jsx", ".tsx"] }],
     "react/function-component-definition": ["error", {"namedComponents": "arrow-function"}],
