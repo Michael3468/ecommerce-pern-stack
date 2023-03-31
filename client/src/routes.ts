@@ -14,12 +14,12 @@ import {
   SHOP_ROUTE,
 } from './utils/constants';
 
-type TRoutes = {
+type TRoute = {
   path: string;
   Component: React.ComponentType;
-}[];
+};
 
-const authRoutes: TRoutes = [
+const authRoutes: TRoute[] = [
   {
     path: ADMIN_ROUTE,
     Component: Admin,
@@ -30,7 +30,7 @@ const authRoutes: TRoutes = [
   },
 ];
 
-const publicRoutes = [
+const publicRoutes: TRoute[] = [
   {
     path: SHOP_ROUTE,
     Component: Shop,
