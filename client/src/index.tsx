@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import DeviceStore from './store/DeviceStore';
+import UserStore from './store/UserStore';
+
+// eslint-disable-next-line import/prefer-default-export
+export const Context = createContext<{ user: UserStore; device: DeviceStore }>({
+  user: new UserStore(),
+  device: new DeviceStore(),
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <Context.Provider
+      value={{
+        user: new UserStore(),
+        device: new DeviceStore(),
+      }}
+    >
+      <App />
+    </Context.Provider>
   </React.StrictMode>,
 );
 
