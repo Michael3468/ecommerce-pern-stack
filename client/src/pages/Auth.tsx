@@ -6,11 +6,12 @@ import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
 const Auth = () => {
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
+  const headerHeight = 54;
 
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
-      style={{ height: window.innerHeight - 54 }}
+      style={{ height: window.innerHeight - headerHeight }}
     >
       <Card style={{ width: '320px', background: 'rgb(191, 191, 191)' }} className="p-3">
         <h2 className="ms-auto me-auto">{isLogin ? 'Authorization' : 'Registration'}</h2>
