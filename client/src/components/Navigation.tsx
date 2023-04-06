@@ -10,6 +10,11 @@ const Navigation = observer(() => {
   const { user } = useContext(Context);
   const navigate = useNavigate();
 
+  const handleLogOutButton = () => {
+    navigate(LOGIN_ROUTE);
+    user.setIsAuth(false);
+  };
+
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
@@ -22,13 +27,13 @@ const Navigation = observer(() => {
             <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>
               Admin panel
             </Button>
-            <Button variant="outline-light" className="ms-2" onClick={() => navigate(LOGIN_ROUTE)}>
+            <Button variant="outline-light" className="ms-2" onClick={handleLogOutButton}>
               Log out
             </Button>
           </Nav>
         ) : (
           <Nav style={{ color: 'white' }}>
-            <Button variant="outline-light" onClick={() => user.setIsAuth(true)}>
+            <Button variant="outline-light" onClick={() => navigate(LOGIN_ROUTE)}>
               Log in
             </Button>
           </Nav>
