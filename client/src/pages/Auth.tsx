@@ -1,12 +1,26 @@
+import { observer } from 'mobx-react-lite';
+import { useContext } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/constants';
+import { Context } from '../index';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, headerHeight } from '../utils/constants';
 
-const Auth = () => {
+const Auth = observer(() => {
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
-  const headerHeight = 54;
+  const { user } = useContext(Context);
+  const navigate = useNavigate();
+
+  const handleAuthButtonClick = (isLoginStatus: boolean) => {
+    if (isLoginStatus) {
+      // Login
+      user.setIsAuth(true);
+      navigate(SHOP_ROUTE);
+    } else {
+      // Register
+    }
+  };
 
   return (
     <Container
@@ -36,7 +50,11 @@ const Auth = () => {
             </Col>
 
             <Col sm={5} className="d-flex">
-              <Button className="ms-auto" variant="outline-success">
+              <Button
+                className="ms-auto"
+                variant="outline-success"
+                onClick={() => handleAuthButtonClick(isLogin)}
+              >
                 {isLogin ? 'Log In' : 'Register'}
               </Button>
             </Col>
@@ -45,6 +63,6 @@ const Auth = () => {
       </Card>
     </Container>
   );
-};
+});
 
 export default Auth;

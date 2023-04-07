@@ -8,9 +8,9 @@ import DeviceItem from './DeviceItem';
 const DeviceList = observer(() => {
   const { device } = useContext(Context);
   return (
-    <Row className="d-flex">
+    <Row className="d-flex mb-5">
       {device.devices.map((d) => (
-        <Col sm={6} md={3}>
+        <Col sm={6} lg={3}>
           <DeviceItem key={d.id} device={d} />
         </Col>
       ))}

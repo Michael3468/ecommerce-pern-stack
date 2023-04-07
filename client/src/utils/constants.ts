@@ -5,4 +5,14 @@ const SHOP_ROUTE = '/';
 const BASKET_ROUTE = '/basket';
 const DEVICE_ROUTE = '/device';
 
-export { ADMIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, BASKET_ROUTE, DEVICE_ROUTE };
+const headerHeight = 54;
+
+export {
+  ADMIN_ROUTE,
+  LOGIN_ROUTE,
+  REGISTRATION_ROUTE,
+  SHOP_ROUTE,
+  BASKET_ROUTE,
+  DEVICE_ROUTE,
+  headerHeight,
+};
