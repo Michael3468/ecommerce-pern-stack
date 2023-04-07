@@ -7,11 +7,11 @@ import star from '../assets/images/star.svg';
 import { IDevice } from '../types';
 import { DEVICE_ROUTE } from '../utils/constants';
 
-interface IDeviceItemProps {
+type Props = {
   device: IDevice;
 }
 
-const DeviceItem: FC<IDeviceItemProps> = ({ device }) => {
+const DeviceItem: FC<Props> = ({ device }) => {
   const navigate = useNavigate();
 
   return (
@@ -20,6 +20,7 @@ const DeviceItem: FC<IDeviceItemProps> = ({ device }) => {
       onClick={() => navigate(`${DEVICE_ROUTE}/${device.id}`)}
     >
       <Card style={{ cursor: 'pointer', borderColor: '#d2d0f4' }}>
+        {/* TODO 100% */}
         <Image
           style={{ borderRadius: 'inherit' }}
           width="100%"
