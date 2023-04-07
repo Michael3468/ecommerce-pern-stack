@@ -4,12 +4,11 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import { Context } from '../index';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/constants';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, headerHeight } from '../utils/constants';
 
 const Auth = observer(() => {
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
-  const headerHeight = 54;
   const { user } = useContext(Context);
   const navigate = useNavigate();
 

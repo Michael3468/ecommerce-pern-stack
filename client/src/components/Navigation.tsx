@@ -25,16 +25,16 @@ const Navigation = observer(() => {
         {user.isAuth ? (
           <Nav style={{ color: 'white' }}>
             <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>
-              Admin panel
+              Admin Panel
             </Button>
             <Button variant="outline-light" className="ms-2" onClick={handleLogOutButton}>
-              Log out
+              Log Out
             </Button>
           </Nav>
         ) : (
           <Nav style={{ color: 'white' }}>
             <Button variant="outline-light" onClick={() => navigate(LOGIN_ROUTE)}>
-              Log in
+              Log In
             </Button>
           </Nav>
         )}
