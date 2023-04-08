@@ -11,7 +11,7 @@ const Navigation = observer(() => {
   const navigate = useNavigate();
 
   const handleLogOutButton = () => {
-    navigate(LOGIN_ROUTE);
+    user.setUser(null);
     user.setIsAuth(false);
   };
 

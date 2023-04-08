@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 // TODO common interfaces with backend??
 type TUserRole = 'ADMIN' | 'USER';
 
-interface IUser {
+export interface IUser {
   id: number;
   email: string;
   password: string;
@@ -24,7 +24,7 @@ class UserStore {
     this._isAuth = bool;
   }
 
-  setUser(user: IUser) {
+  setUser(user: IUser | null) {
     this._user = user;
   }
 
