@@ -26,12 +26,12 @@ class DeviceController {
       let device: IDevice;
       if (img) {
         const fileName = getMd5FileName(img);
-        img.mv(path.resolve(__dirname, '../../static', fileName));
+        img.mv(path.resolve(__dirname, '../static', fileName));
 
         device = await Device.create({ name, price, brandId, typeId, img: fileName });
       } else {
         // TODO: 'add default-image.jpg'
-        const defaultImage = path.resolve(__dirname, '../../static', 'default-image.jpg');
+        const defaultImage = path.resolve(__dirname, '../static', 'default-image.jpg');
         device = await Device.create({ name, price, brandId, typeId, img: defaultImage });
       }
 

@@ -10,31 +10,9 @@ class DeviceStore {
   private _selectedBrand: IBrand;
 
   constructor() {
-    this._types = [
-      { id: 1, name: 'Холодильники' },
-      { id: 2, name: 'Смартфоны' },
-      { id: 3, name: 'Ноутбуки' },
-      { id: 4, name: 'Телевизоры' },
-    ];
-
-    this._brands = [
-      { id: 1, name: 'Samsung' },
-      { id: 2, name: 'Apple' },
-      { id: 3, name: 'Lenovo' },
-      { id: 4, name: 'Aquarius' },
-    ];
-
-    // TODO check images from internet
-    this._devices = [
-      { id: 1, name: 'Iphone 12 Pro', price: 25001, rating: 1, img: '' },
-      { id: 2, name: 'Iphone 12 Pro', price: 25002, rating: 2, img: '' },
-      { id: 3, name: 'Iphone 12 Pro', price: 25003, rating: 3, img: '' },
-      { id: 4, name: 'Iphone 12 Pro', price: 25004, rating: 4, img: '' },
-      { id: 5, name: 'Iphone 12 Pro', price: 25003, rating: 3, img: '' },
-      { id: 6, name: 'Iphone 12 Pro', price: 25004, rating: 4, img: '' },
-      { id: 7, name: 'Iphone 12 Pro', price: 25003, rating: 3, img: '' },
-      { id: 8, name: 'Iphone 12 Pro', price: 25004, rating: 4, img: '' },
-    ];
+    this._types = [];
+    this._brands = [];
+    this._devices = [];
 
     this._selectedType = {
       id: 0,

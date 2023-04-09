@@ -1,32 +1,36 @@
+import { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 import noImage from '../assets/images/no-image.png';
 import bigStar from '../assets/images/star.svg';
+import { fetchOneDevice } from '../http/deviceAPI';
+import { IDevice } from '../types';
 
 const Device = () => {
-  const device = { id: 1, name: 'Iphone 12 Pro', price: 24999, rating: 1, img: '' };
-  const description = [
-    { id: 1, title: 'RAM', description: '8GB' },
-    { id: 2, title: 'Camera', description: '5MP' },
-    { id: 3, title: 'CPU', description: '' },
-    { id: 4, title: 'Cores', description: '2' },
-    { id: 5, title: 'Battery', description: '5000mAh' },
-  ];
+  const [device, setDevice] = useState<IDevice | null>(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetchOneDevice(Number(id)).then((data) => {
+      setDevice(data);
+    });
+  }, [id]);
 
   return (
     <Container className="mt-3">
       <Row>
-        <Col md={4} className="d-flex align-items-center">
+        <Col md={4} className="d-flex align-items-center mb-3">
           <Image
-            className="ms-auto me-auto"
+            className="ms-auto me-auto w-100"
             width={300}
             height={300}
-            src={device.img.length ? device.img : noImage}
+            src={device && device.img.length ? process.env.REACT_APP_API_URL + device.img : noImage}
           />
         </Col>
-        <Col md={4}>
+        <Col md={4} className="mb-3">
           <Row className="d-flex flex-column align-items-center justify-content-center">
-            <h2 className="d-flex align-items-center justify-content-center">{device.name}</h2>
+            <h2 className="d-flex align-items-center justify-content-center">{device?.name}</h2>
             <div
               className="d-flex align-items-center justify-content-center"
               style={{
@@ -39,24 +43,24 @@ const Device = () => {
                   'invert(51%) sepia(66%) saturate(964%) hue-rotate(16deg) brightness(141%) contrast(119%)',
               }}
             >
-              {device.rating}
+              {device?.rating}
             </div>
           </Row>
         </Col>
-        <Col md={4}>
+        <Col md={4} className="mb-3">
           <Card
             className="d-flex flex-column align-items-center justify-content-around ms-auto me-auto"
             style={{ width: 300, height: 300, fontSize: 32, border: '5px solid lightgray' }}
           >
-            <h3>{`From: ${device.price} ¥`}</h3>
+            <h3>{`From: ${device?.price ? device.price : 9999} ¥`}</h3>
             <Button variant="outline-dark">Add to Cart</Button>
           </Card>
         </Col>
       </Row>
-      <Row className="d-flex flex-column mt-5">
+      <Row className="d-flex flex-column mt-5 mb-5">
         <Col>
           <h3>Characteristics</h3>
-          {description.map((info, index) => (
+          {device?.info?.map((info, index) => (
             <div
               key={info.id}
               style={{

@@ -9,7 +9,7 @@ import { DEVICE_ROUTE } from '../utils/constants';
 
 type Props = {
   device: IDevice;
-}
+};
 
 const DeviceItem: FC<Props> = ({ device }) => {
   const navigate = useNavigate();
@@ -20,11 +20,10 @@ const DeviceItem: FC<Props> = ({ device }) => {
       onClick={() => navigate(`${DEVICE_ROUTE}/${device.id}`)}
     >
       <Card style={{ cursor: 'pointer', borderColor: '#d2d0f4' }}>
-        {/* TODO 100% */}
         <Image
           style={{ borderRadius: 'inherit' }}
-          width="100%"
-          src={device.img.length ? device.img : noImage}
+          className="w-100"
+          src={device.img.length ? process.env.REACT_APP_API_URL + device.img : noImage}
         />
         <div className="p-2">
           <div className="text-black-50">Samsung</div>

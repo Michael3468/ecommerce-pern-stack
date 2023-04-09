@@ -16,7 +16,7 @@ const Admin = () => {
       className="d-flex align-items-center"
       style={{ height: window.innerHeight - headerHeight }}
     >
-      <Col sm={12} md={6} className="d-flex flex-column ms-auto me-auto mt-auto mb-auto">
+      <Col xs={8} sm={8} md={6} className="d-flex flex-column ms-auto me-auto mt-auto mb-auto">
         <Button variant="outline-dark" className="mt-4" onClick={() => setTypeVisible(true)}>
           Add Type
         </Button>
