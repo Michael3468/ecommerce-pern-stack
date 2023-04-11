@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
 import { createType } from '../../http/deviceAPI';
@@ -10,11 +10,20 @@ type Props = {
 
 const CreateType: FC<Props> = ({ show, onHide }) => {
   const [value, setValue] = useState<string>('');
+  const [addTypeDisabledButtonStatus, setAddTypeDisabledButtonStatus] = useState<boolean>(true);
 
   const addType = () => {
     createType({ name: value }).then(() => setValue(''));
     onHide();
   };
+
+  useEffect(() => {
+    if (value) {
+      setAddTypeDisabledButtonStatus(false);
+    } else {
+      setAddTypeDisabledButtonStatus(true);
+    }
+  }, [value]);
 
   return (
     <Modal size="sm" centered show={show} onHide={onHide}>
@@ -34,7 +43,7 @@ const CreateType: FC<Props> = ({ show, onHide }) => {
         <Button variant="outline-danger" onClick={onHide}>
           Close
         </Button>
-        <Button variant="outline-success" onClick={addType}>
+        <Button variant="outline-success" disabled={addTypeDisabledButtonStatus} onClick={addType}>
           Add Type
         </Button>
       </Modal.Footer>
