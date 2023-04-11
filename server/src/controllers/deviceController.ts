@@ -21,7 +21,11 @@ class DeviceController {
     try {
       const { name, price, brandId, typeId }: IDeviceAttributes = req.body;
       let { info } = req.body;
-      const { img } = (req as IDeviceControllerCreateRequest).files || null;
+
+      let img;
+      if ((req as IDeviceControllerCreateRequest).files) {
+        img = (req as IDeviceControllerCreateRequest).files.img;
+      }
 
       let device: IDevice;
       if (img) {
