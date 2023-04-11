@@ -23,6 +23,7 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
   const [price, setPrice] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
   const [info, setInfo] = useState<TInfo[]>([]);
+  const [addDeviceDisabledButtonStatus, setAddDeviceDisabledButtonStatus] = useState<boolean>(true);
 
   const addInfo = () => {
     setInfo([...info, { title: '', description: '', id: Date.now() }]);
@@ -58,6 +59,14 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
     fetchTypes().then((data) => device.setTypes(data));
     fetchBrands().then((data) => device.setBrands(data));
   }, [device]);
+
+  useEffect(() => {
+    if (name && price && device.selectedType.name && device.selectedBrand.name) {
+      setAddDeviceDisabledButtonStatus(false);
+    } else {
+      setAddDeviceDisabledButtonStatus(true);
+    }
+  }, [name, price, device.selectedBrand, device.selectedType]);
 
   return (
     <Modal size="lg" centered show={show} onHide={onHide}>
@@ -101,7 +110,6 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
             </Dropdown.Menu>
           </Dropdown>
 
-          {/* TODO: make form controls required to be filled in */}
           <Form.Control
             className="mt-3"
             value={name}
@@ -115,7 +123,7 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
             placeholder="Enter device price"
             type="number"
           />
-          <Form.Control className="mt-3" type="file" onChange={selectFile} />
+          <Form.Control className="mt-3" type="file" onChange={selectFile} required />
 
           <hr />
           {/* TODO: add new property in the beginning of the properties list */}
@@ -154,7 +162,11 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
         <Button variant="outline-danger" onClick={onHide}>
           Close
         </Button>
-        <Button variant="outline-success" onClick={addDevice}>
+        <Button
+          variant="outline-success"
+          disabled={addDeviceDisabledButtonStatus}
+          onClick={addDevice}
+        >
           Add Device
         </Button>
       </Modal.Footer>
