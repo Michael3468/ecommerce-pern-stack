@@ -26,7 +26,7 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
   const [addDeviceDisabledButtonStatus, setAddDeviceDisabledButtonStatus] = useState<boolean>(true);
 
   const addInfo = () => {
-    setInfo([...info, { title: '', description: '', id: Date.now() }]);
+    setInfo([{ title: '', description: '', id: Date.now() }, ...info]);
   };
 
   const removeInfo = (id: number) => {
@@ -126,7 +126,6 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
           <Form.Control className="mt-3" type="file" onChange={selectFile} required />
 
           <hr />
-          {/* TODO: add new property in the beginning of the properties list */}
           <Button variant="outline-dark" onClick={addInfo}>
             Add new property
           </Button>
