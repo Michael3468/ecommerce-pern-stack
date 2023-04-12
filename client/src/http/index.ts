@@ -13,7 +13,9 @@ const authInterceptor = (
 ): InternalAxiosRequestConfig<AxiosRequestConfig> => {
   const configWithInterceptor = { ...config };
 
-  configWithInterceptor.headers.authorization = `Bearer ${localStorage.getItem('token')}`;
+  if (localStorage.getItem('token')) {
+    configWithInterceptor.headers.authorization = `Bearer ${localStorage.getItem('token')}`;
+  }
 
   return configWithInterceptor;
 };
