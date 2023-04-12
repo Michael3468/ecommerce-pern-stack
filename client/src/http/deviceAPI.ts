@@ -34,6 +34,11 @@ const fetchBrands = async (): Promise<IBrand[]> => {
   return data;
 };
 
+const fetchOneBrand = async (id: number): Promise<IBrand> => {
+  const { data } = await $host.get(`api/brand/${id}`);
+  return data;
+};
+
 const createDevice = async (device: FormData): Promise<IDevice> => {
   const { data } = await $authHost.post('api/device', device);
   return data;
@@ -66,6 +71,7 @@ export {
   fetchTypes,
   createBrand,
   fetchBrands,
+  fetchOneBrand,
   createDevice,
   fetchDevices,
   fetchOneDevice,

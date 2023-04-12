@@ -20,6 +20,9 @@ interface IDevice {
   rating: number;
   img: string;
   info?: IDeviceInfo[];
+  typeId: number;
+  brandId: number;
+  basketId: number;
 }
 
 export type { IType, IBrand, IDevice, IDeviceInfo };

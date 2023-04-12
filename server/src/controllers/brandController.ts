@@ -23,6 +23,16 @@ class BrandController {
       return next(ApiError.internal({ error: error as Error }));
     }
   }
+
+  async getOne(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    try {
+      const { id } = req.params;
+      const brand = await Brand.findOne({ where: { id } });
+      return res.json(brand);
+    } catch (error) {
+      return next(ApiError.internal({ error: error as Error }));
+    }
+  }
 }
 
 export default BrandController;
