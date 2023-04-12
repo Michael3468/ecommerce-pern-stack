@@ -52,7 +52,7 @@ const Device = () => {
             className="d-flex flex-column align-items-center justify-content-around ms-auto me-auto"
             style={{ width: 300, height: 300, fontSize: 32, border: '5px solid lightgray' }}
           >
-            <h3>{`From: ${device?.price ? device.price : 9999} ¥`}</h3>
+            <h3>{`From: ${device?.price ? device.price : '???'} ¥`}</h3>
             <Button variant="outline-dark">Add to Cart</Button>
           </Card>
         </Col>

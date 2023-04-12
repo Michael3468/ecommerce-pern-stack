@@ -8,6 +8,9 @@ class DeviceStore {
   private _devices: IDevice[];
   private _selectedType: IType;
   private _selectedBrand: IBrand;
+  private _page: number;
+  private _totalCount: number;
+  private _limit: number;
 
   constructor() {
     this._types = [];
@@ -23,6 +26,10 @@ class DeviceStore {
       id: 0,
       name: '',
     };
+
+    this._page = 1;
+    this._totalCount = 0;
+    this._limit = 3;
 
     makeAutoObservable(this);
   }
@@ -41,10 +48,20 @@ class DeviceStore {
 
   setSelectedType(type: IType) {
     this._selectedType = type;
+    this.setPage(1);
   }
 
   setSelectedBrand(brand: IBrand) {
     this._selectedBrand = brand;
+    this.setPage(1);
+  }
+
+  setPage(page: number) {
+    this._page = page;
+  }
+
+  setTotalCount(count: number) {
+    this._totalCount = count;
   }
 
   get types(): IType[] {
@@ -65,6 +82,18 @@ class DeviceStore {
 
   get selectedBrand(): IBrand {
     return this._selectedBrand;
+  }
+
+  get page(): number {
+    return this._page;
+  }
+
+  get totalCount(): number {
+    return this._totalCount;
+  }
+
+  get limit(): number {
+    return this._limit;
   }
 }
 

@@ -1,6 +1,19 @@
 import { $host, $authHost } from '.';
 import { IBrand, IDevice, IType } from '../types';
 
+// TODO interfaces
+interface IFetchDevicesParams {
+  typeId?: number;
+  brandId?: number;
+  page?: number;
+  limit?: number;
+}
+
+interface IDevices {
+  count: number;
+  rows: IDevice[];
+}
+
 const createType = async (type: { name: string }): Promise<IType> => {
   const { data } = await $authHost.post('api/type', type);
   return data;
@@ -26,9 +39,21 @@ const createDevice = async (device: FormData): Promise<IDevice> => {
   return data;
 };
 
-const fetchDevices = async (): Promise<IDevice[]> => {
-  const { data } = await $host.get('api/device');
-  return data.rows;
+const fetchDevices = async ({
+  typeId,
+  brandId,
+  page,
+  limit = 5,
+}: IFetchDevicesParams): Promise<IDevices> => {
+  const { data } = await $host.get('api/device', {
+    params: {
+      typeId,
+      brandId,
+      page,
+      limit,
+    },
+  });
+  return data;
 };
 
 const fetchOneDevice = async (id: number): Promise<IDevice> => {
