@@ -12,11 +12,21 @@ const App = observer(() => {
   const { user } = useContext(Context);
   const [loading, setLoading] = useState<boolean>(true);
 
+  // TODO: change 'data' to something more specific (everywhere)
   useEffect(() => {
     check()
       .then((data) => {
         user.setUser(data);
         user.setIsAuth(true);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        // eslint-disable-next-line no-console
+        console.log(message);
+
+        if (message === 'jwt expired') {
+          localStorage.removeItem('token');
+        }
       })
       .finally(() => setLoading(false));
   }, [user]);
