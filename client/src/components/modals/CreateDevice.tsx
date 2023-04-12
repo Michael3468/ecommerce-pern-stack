@@ -18,7 +18,7 @@ type Props = {
 
 // TODO storybook
 const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
-  const { device } = useContext(Context);
+  const { deviceStore } = useContext(Context);
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
@@ -47,26 +47,26 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('price', `${price}`);
-    formData.append('img', file as File); // TODO: add 'if (file)' or disable 'Add device' button if file not selected
-    formData.append('brandId', `${device.selectedBrand.id}`);
-    formData.append('typeId', `${device.selectedType.id}`);
+    formData.append('img', file as File); // TODO: add 'if (file)' or disable 'Add deviceStore' button if file not selected
+    formData.append('brandId', `${deviceStore.selectedBrand.id}`);
+    formData.append('typeId', `${deviceStore.selectedType.id}`);
     formData.append('info', JSON.stringify(info));
 
     createDevice(formData).then(() => onHide());
   };
 
   useEffect(() => {
-    fetchTypes().then((data) => device.setTypes(data));
-    fetchBrands().then((data) => device.setBrands(data));
-  }, [device]);
+    fetchTypes().then((data) => deviceStore.setTypes(data));
+    fetchBrands().then((data) => deviceStore.setBrands(data));
+  }, [deviceStore]);
 
   useEffect(() => {
-    if (name && price && device.selectedType.name && device.selectedBrand.name) {
+    if (name && price && deviceStore.selectedType.name && deviceStore.selectedBrand.name) {
       setAddDeviceDisabledButtonStatus(false);
     } else {
       setAddDeviceDisabledButtonStatus(true);
     }
-  }, [name, price, device.selectedBrand, device.selectedType]);
+  }, [name, price, deviceStore.selectedBrand, deviceStore.selectedType]);
 
   return (
     <Modal size="lg" centered show={show} onHide={onHide}>
@@ -78,13 +78,13 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
         <Form>
           <Dropdown className="mt-2 mb-2">
             <Dropdown.Toggle className="w-100">
-              {device.selectedType.name || 'Choose Type'}
+              {deviceStore.selectedType.name || 'Choose Type'}
             </Dropdown.Toggle>
             <Dropdown.Menu className="w-100">
-              {device.types.map((type) => (
+              {deviceStore.types.map((type) => (
                 <Dropdown.Item
                   key={type.id}
-                  onClick={() => device.setSelectedType(type)}
+                  onClick={() => deviceStore.setSelectedType(type)}
                   className="d-flex justify-content-center"
                 >
                   {type.name}
@@ -95,13 +95,13 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
 
           <Dropdown className="mt-2 mb-2">
             <Dropdown.Toggle className="w-100">
-              {device.selectedBrand.name || 'Choose Brand'}
+              {deviceStore.selectedBrand.name || 'Choose Brand'}
             </Dropdown.Toggle>
             <Dropdown.Menu className="w-100">
-              {device.brands.map((brand) => (
+              {deviceStore.brands.map((brand) => (
                 <Dropdown.Item
                   key={brand.id}
-                  onClick={() => device.setSelectedBrand(brand)}
+                  onClick={() => deviceStore.setSelectedBrand(brand)}
                   className="d-flex justify-content-center"
                 >
                   {brand.name}

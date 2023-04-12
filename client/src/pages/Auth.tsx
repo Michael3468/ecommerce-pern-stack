@@ -11,7 +11,7 @@ import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, headerHeight } from '../ut
 const Auth = observer(() => {
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
-  const { user } = useContext(Context);
+  const { userStore } = useContext(Context);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>('');
@@ -26,8 +26,8 @@ const Auth = observer(() => {
         data = await registration(email, password);
       }
 
-      user.setUser(data as IUser);
-      user.setIsAuth(true);
+      userStore.setUser(data as IUser);
+      userStore.setIsAuth(true);
       navigate(SHOP_ROUTE);
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -80,7 +80,7 @@ const Auth = observer(() => {
               <Button
                 className="ms-auto"
                 variant="outline-success"
-                // onClick={() => handleAuthButtonClick(isLogin)}
+                // onClick={() => handleAuthButtonClick(isLogin)} // TODO
                 onClick={click}
               >
                 {isLogin ? 'Log In' : 'Register'}

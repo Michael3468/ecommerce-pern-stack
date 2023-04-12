@@ -7,12 +7,12 @@ import { Context } from '../index';
 import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/constants';
 
 const Navigation = observer(() => {
-  const { user } = useContext(Context);
+  const { userStore } = useContext(Context);
   const navigate = useNavigate();
 
   const handleLogOutButton = () => {
-    user.setUser(null);
-    user.setIsAuth(false);
+    userStore.setUser(null);
+    userStore.setIsAuth(false);
   };
 
   return (
@@ -22,7 +22,7 @@ const Navigation = observer(() => {
           BuyDevice
         </NavLink>
 
-        {user.isAuth ? (
+        {userStore.isAuth ? (
           <Nav style={{ color: 'white' }}>
             <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>
               Admin Panel

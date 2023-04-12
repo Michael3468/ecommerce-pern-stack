@@ -9,15 +9,15 @@ import Navigation from './components/Navigation';
 import { check } from './http/userAPI';
 
 const App = observer(() => {
-  const { user } = useContext(Context);
+  const { userStore } = useContext(Context);
   const [loading, setLoading] = useState<boolean>(true);
 
   // TODO: change 'data' to something more specific (everywhere)
   useEffect(() => {
     check()
       .then((data) => {
-        user.setUser(data);
-        user.setIsAuth(true);
+        userStore.setUser(data);
+        userStore.setIsAuth(true);
       })
       .catch((error) => {
         const { message } = error.response.data;
@@ -29,7 +29,7 @@ const App = observer(() => {
         }
       })
       .finally(() => setLoading(false));
-  }, [user]);
+  }, [userStore]);
 
   if (loading) {
     return (

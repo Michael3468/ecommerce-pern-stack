@@ -10,28 +10,28 @@ import { fetchBrands, fetchDevices, fetchTypes } from '../http/deviceAPI';
 import { Context } from '../index';
 
 const Shop = observer(() => {
-  const { device } = useContext(Context);
+  const { deviceStore } = useContext(Context);
 
   useEffect(() => {
-    fetchTypes().then((data) => device.setTypes(data));
-    fetchBrands().then((data) => device.setBrands(data));
+    fetchTypes().then((data) => deviceStore.setTypes(data));
+    fetchBrands().then((data) => deviceStore.setBrands(data));
     fetchDevices({ typeId: undefined, brandId: undefined, page: 1, limit: 2 }).then((data) => {
-      device.setDevices(data.rows);
-      device.setTotalCount(data.count);
+      deviceStore.setDevices(data.rows);
+      deviceStore.setTotalCount(data.count);
     });
-  }, [device]);
+  }, [deviceStore]);
 
   useEffect(() => {
     fetchDevices({
-      typeId: device.selectedType.id ? device.selectedType.id : undefined,
-      brandId: device.selectedBrand.id ? device.selectedBrand.id : undefined,
-      page: device.page,
+      typeId: deviceStore.selectedType.id ? deviceStore.selectedType.id : undefined,
+      brandId: deviceStore.selectedBrand.id ? deviceStore.selectedBrand.id : undefined,
+      page: deviceStore.page,
       limit: 2,
     }).then((data) => {
-      device.setDevices(data.rows);
-      device.setTotalCount(data.count);
+      deviceStore.setDevices(data.rows);
+      deviceStore.setTotalCount(data.count);
     });
-  }, [device, device.page, device.selectedType, device.selectedBrand]);
+  }, [deviceStore, deviceStore.page, deviceStore.selectedType, deviceStore.selectedBrand]);
 
   return (
     <Container>
