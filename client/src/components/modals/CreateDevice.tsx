@@ -130,8 +130,8 @@ const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
             Add new property
           </Button>
           {info.map((i) => (
-            <Card className="mt-2 mb-2 p-2">
-              <Row className="mt-2" key={i.id}>
+            <Card key={i.id} className="mt-2 mb-2 p-2">
+              <Row className="mt-2">
                 <Col lg={5} className="mb-2">
                   <Form.Control
                     value={i.title}
