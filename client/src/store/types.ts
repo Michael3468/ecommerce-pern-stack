@@ -1,3 +1,5 @@
+import { USER_ROLE } from '../constants';
+
 interface IType {
   id: number;
   name: string;
@@ -25,4 +27,12 @@ interface IDevice {
   basketId: number;
 }
 
-export type { IType, IBrand, IDevice, IDeviceInfo };
+type TUserRole = typeof USER_ROLE.ADMIN | typeof USER_ROLE.USER;
+
+interface IUser {
+  id: number;
+  email: string;
+  password: string;
+  role: TUserRole;
+}
+export type { IType, IBrand, IDevice, IDeviceInfo, IUser, TUserRole };

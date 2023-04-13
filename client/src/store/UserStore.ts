@@ -1,16 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import { USER_ROLE } from '../constants';
-
-type TUserRole = typeof USER_ROLE.ADMIN | typeof USER_ROLE.USER;
-
-// TODO: move export interface ot types
-export interface IUser {
-  id: number;
-  email: string;
-  password: string;
-  role: TUserRole;
-}
+import { IUser } from './types';
 
 class UserStore {
   private _isAuth: boolean;
