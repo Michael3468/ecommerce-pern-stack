@@ -1,24 +1,35 @@
 import { observer } from 'mobx-react-lite';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
+import { ROUTE, headerHeight } from '../constants';
+import { login, registration } from '../http/userAPI';
 import { Context } from '../index';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, headerHeight } from '../utils/constants';
 
 const Auth = observer(() => {
   const location = useLocation();
-  const isLogin = location.pathname === LOGIN_ROUTE;
-  const { user } = useContext(Context);
+  const isLoginRoute = location.pathname === ROUTE.LOGIN;
+  const { userStore } = useContext(Context);
   const navigate = useNavigate();
 
-  const handleAuthButtonClick = (isLoginStatus: boolean) => {
-    if (isLoginStatus) {
-      // Login
-      user.setIsAuth(true);
-      navigate(SHOP_ROUTE);
-    } else {
-      // Register
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const click = async () => {
+    try {
+      const user = isLoginRoute
+        ? await login(email, password)
+        : await registration(email, password);
+
+      userStore.setUser(user);
+      userStore.setIsAuth(true);
+      navigate(ROUTE.SHOP);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      // eslint-disable-next-line no-alert
+      alert((error as Error).message ?? 'An error ocurred');
     }
   };
 
@@ -28,34 +39,44 @@ const Auth = observer(() => {
       style={{ height: window.innerHeight - headerHeight }}
     >
       <Card style={{ width: '320px', background: 'rgb(191, 191, 191)' }} className="p-3">
-        <h2 className="ms-auto me-auto">{isLogin ? 'Authorization' : 'Registration'}</h2>
+        <h2 className="ms-auto me-auto">{isLoginRoute ? 'Authorization' : 'Registration'}</h2>
 
+        {/* TODO: add focus on email field when open authorization / registration page */}
         <Form className="d-flex flex-column">
-          <Form.Control className="mt-3" type="email" placeholder="enter your email..." />
-          <Form.Control className="mt-3" type="password" placeholder="enter your password..." />
+          <Form.Control
+            className="mt-3"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="enter your email..."
+          />
+          <Form.Control
+            className="mt-3"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="enter your password..."
+          />
 
           <Row className="d-flex justify-content-between align-items-center pl-3 pr-3 mt-3">
             <Col sm={7}>
-              {isLogin ? (
+              {isLoginRoute ? (
                 <div>
                   {'No account? '}
-                  <NavLink to={REGISTRATION_ROUTE}>Register</NavLink>
+                  <NavLink to={ROUTE.REGISTRATION}>Register</NavLink>
                 </div>
               ) : (
                 <div>
                   {'Have account? '}
-                  <NavLink to={LOGIN_ROUTE}>Log In</NavLink>
+                  <NavLink to={ROUTE.LOGIN}>Log In</NavLink>
                 </div>
               )}
             </Col>
 
+            {/* TODO: add if click 'Enter' on email or password, this button pressed */}
             <Col sm={5} className="d-flex">
-              <Button
-                className="ms-auto"
-                variant="outline-success"
-                onClick={() => handleAuthButtonClick(isLogin)}
-              >
-                {isLogin ? 'Log In' : 'Register'}
+              <Button className="ms-auto" variant="outline-success" onClick={click}>
+                {isLoginRoute ? 'Log In' : 'Register'}
               </Button>
             </Col>
           </Row>

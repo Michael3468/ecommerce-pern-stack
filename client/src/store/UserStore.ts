@@ -1,14 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-// TODO common interfaces with backend??
-type TUserRole = 'ADMIN' | 'USER';
-
-interface IUser {
-  id: number;
-  email: string;
-  password: string;
-  role: TUserRole;
-}
+import { IUser } from './types';
 
 class UserStore {
   private _isAuth: boolean;
@@ -24,7 +16,7 @@ class UserStore {
     this._isAuth = bool;
   }
 
-  setUser(user: IUser) {
+  setUser(user: IUser | null) {
     this._user = user;
   }
 

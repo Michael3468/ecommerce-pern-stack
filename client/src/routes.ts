@@ -1,18 +1,7 @@
 import React from 'react';
 
-import Admin from './pages/Admin';
-import Auth from './pages/Auth';
-import Basket from './pages/Basket';
-import Device from './pages/Device';
-import Shop from './pages/Shop';
-import {
-  ADMIN_ROUTE,
-  BASKET_ROUTE,
-  DEVICE_ROUTE,
-  LOGIN_ROUTE,
-  REGISTRATION_ROUTE,
-  SHOP_ROUTE,
-} from './utils/constants';
+import { ROUTE } from './constants';
+import { Admin, Auth, Basket, Device, Shop } from './pages';
 
 type TRoute = {
   path: string;
@@ -21,30 +10,30 @@ type TRoute = {
 
 const authRoutes: TRoute[] = [
   {
-    path: ADMIN_ROUTE,
+    path: ROUTE.ADMIN,
     Component: Admin,
   },
   {
-    path: BASKET_ROUTE,
+    path: ROUTE.BASKET,
     Component: Basket,
   },
 ];
 
 const publicRoutes: TRoute[] = [
   {
-    path: SHOP_ROUTE,
+    path: ROUTE.SHOP,
     Component: Shop,
   },
   {
-    path: LOGIN_ROUTE,
+    path: ROUTE.LOGIN,
     Component: Auth,
   },
   {
-    path: REGISTRATION_ROUTE,
+    path: ROUTE.REGISTRATION,
     Component: Auth,
   },
   {
-    path: `${DEVICE_ROUTE}/:id`,
+    path: `${ROUTE.DEVICE}/:id`,
     Component: Device,
   },
 ];
