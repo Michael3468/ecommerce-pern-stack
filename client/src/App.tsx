@@ -4,8 +4,7 @@ import { Spinner } from 'react-bootstrap';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Context } from '.';
-import AppRouter from './components/AppRouter';
-import Navigation from './components/Navigation';
+import { AppRouter, Navigation } from './components';
 import { check } from './http/userAPI';
 
 const App = observer(() => {

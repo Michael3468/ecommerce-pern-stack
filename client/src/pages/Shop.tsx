@@ -2,10 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useContext, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
-import BrandBar from '../components/BrandBar';
-import DeviceList from '../components/DeviceList';
-import Pages from '../components/Pages';
-import TypeBar from '../components/TypeBar';
+import { BrandBar, DeviceList, Pages, TypeBar } from '../components';
 import { fetchBrands, fetchDevices, fetchTypes } from '../http/deviceAPI';
 import { Context } from '../index';
 
