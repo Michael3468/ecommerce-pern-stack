@@ -3,7 +3,7 @@ const ROUTE = {
   LOGIN: '/login',
   REGISTRATION: '/registration',
   SHOP: '/',
-  BASKET: '/basket', // TODO: rename to '/cart'
+  CART: '/cart',
   DEVICE: '/device',
 };
 

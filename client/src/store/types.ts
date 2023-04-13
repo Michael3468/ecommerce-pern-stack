@@ -24,7 +24,7 @@ interface IDevice {
   info?: IDeviceInfo[];
   typeId: number;
   brandId: number;
-  basketId: number;
+  cartId: number;
 }
 
 type TUserRole = typeof USER_ROLE.ADMIN | typeof USER_ROLE.USER;

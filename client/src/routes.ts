@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ROUTE } from './constants';
-import { Admin, Auth, Basket, Device, Shop } from './pages';
+import { Admin, Auth, Cart, Device, Shop } from './pages';
 
 type TRoute = {
   path: string;
@@ -14,8 +14,8 @@ const authRoutes: TRoute[] = [
     Component: Admin,
   },
   {
-    path: ROUTE.BASKET,
-    Component: Basket,
+    path: ROUTE.CART,
+    Component: Cart,
   },
 ];
 
