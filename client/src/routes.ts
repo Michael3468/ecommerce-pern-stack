@@ -1,12 +1,7 @@
 import React from 'react';
 
 import { ROUTE } from './constants';
-// TODO: reexport pages from pages/index.ts
-import Admin from './pages/Admin';
-import Auth from './pages/Auth';
-import Basket from './pages/Basket';
-import Device from './pages/Device';
-import Shop from './pages/Shop';
+import { Admin, Auth, Basket, Device, Shop } from './pages';
 
 type TRoute = {
   path: string;
