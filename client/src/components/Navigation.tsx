@@ -18,6 +18,7 @@ const Navigation = observer(() => {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
+        {/* TODO: add color 'white' to 'constants' theme */}
         <NavLink to={ROUTE.SHOP} style={{ color: 'white' }}>
           BuyDevice
         </NavLink>

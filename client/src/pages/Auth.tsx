@@ -41,6 +41,7 @@ const Auth = observer(() => {
       <Card style={{ width: '320px', background: 'rgb(191, 191, 191)' }} className="p-3">
         <h2 className="ms-auto me-auto">{isLoginRoute ? 'Authorization' : 'Registration'}</h2>
 
+        {/* TODO: add focus on email field when open authorization / registration page */}
         <Form className="d-flex flex-column">
           <Form.Control
             className="mt-3"
@@ -72,6 +73,7 @@ const Auth = observer(() => {
               )}
             </Col>
 
+            {/* TODO: add if click 'Enter' on email or password, this button pressed */}
             <Col sm={5} className="d-flex">
               <Button className="ms-auto" variant="outline-success" onClick={click}>
                 {isLoginRoute ? 'Log In' : 'Register'}
