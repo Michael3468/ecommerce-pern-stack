@@ -7,9 +7,9 @@ import DeviceStore from './store/DeviceStore';
 import UserStore from './store/UserStore';
 
 // eslint-disable-next-line import/prefer-default-export
-export const Context = createContext<{ user: UserStore; device: DeviceStore }>({
-  user: new UserStore(),
-  device: new DeviceStore(),
+export const Context = createContext<{ userStore: UserStore; deviceStore: DeviceStore }>({
+  userStore: new UserStore(),
+  deviceStore: new DeviceStore(),
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -17,8 +17,8 @@ root.render(
   <React.StrictMode>
     <Context.Provider
       value={{
-        user: new UserStore(),
-        device: new DeviceStore(),
+        userStore: new UserStore(),
+        deviceStore: new DeviceStore(),
       }}
     >
       <App />

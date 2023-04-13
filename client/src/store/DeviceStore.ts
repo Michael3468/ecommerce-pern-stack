@@ -8,33 +8,14 @@ class DeviceStore {
   private _devices: IDevice[];
   private _selectedType: IType;
   private _selectedBrand: IBrand;
+  private _page: number;
+  private _totalCount: number;
+  private _limit: number;
 
   constructor() {
-    this._types = [
-      { id: 1, name: 'Холодильники' },
-      { id: 2, name: 'Смартфоны' },
-      { id: 3, name: 'Ноутбуки' },
-      { id: 4, name: 'Телевизоры' },
-    ];
-
-    this._brands = [
-      { id: 1, name: 'Samsung' },
-      { id: 2, name: 'Apple' },
-      { id: 3, name: 'Lenovo' },
-      { id: 4, name: 'Aquarius' },
-    ];
-
-    // TODO check images from internet
-    this._devices = [
-      { id: 1, name: 'Iphone 12 Pro', price: 25001, rating: 1, img: '' },
-      { id: 2, name: 'Iphone 12 Pro', price: 25002, rating: 2, img: '' },
-      { id: 3, name: 'Iphone 12 Pro', price: 25003, rating: 3, img: '' },
-      { id: 4, name: 'Iphone 12 Pro', price: 25004, rating: 4, img: '' },
-      { id: 5, name: 'Iphone 12 Pro', price: 25003, rating: 3, img: '' },
-      { id: 6, name: 'Iphone 12 Pro', price: 25004, rating: 4, img: '' },
-      { id: 7, name: 'Iphone 12 Pro', price: 25003, rating: 3, img: '' },
-      { id: 8, name: 'Iphone 12 Pro', price: 25004, rating: 4, img: '' },
-    ];
+    this._types = [];
+    this._brands = [];
+    this._devices = [];
 
     this._selectedType = {
       id: 0,
@@ -45,6 +26,10 @@ class DeviceStore {
       id: 0,
       name: '',
     };
+
+    this._page = 1;
+    this._totalCount = 0;
+    this._limit = 3;
 
     makeAutoObservable(this);
   }
@@ -63,10 +48,20 @@ class DeviceStore {
 
   setSelectedType(type: IType) {
     this._selectedType = type;
+    this.setPage(1);
   }
 
   setSelectedBrand(brand: IBrand) {
     this._selectedBrand = brand;
+    this.setPage(1);
+  }
+
+  setPage(page: number) {
+    this._page = page;
+  }
+
+  setTotalCount(count: number) {
+    this._totalCount = count;
   }
 
   get types(): IType[] {
@@ -87,6 +82,18 @@ class DeviceStore {
 
   get selectedBrand(): IBrand {
     return this._selectedBrand;
+  }
+
+  get page(): number {
+    return this._page;
+  }
+
+  get totalCount(): number {
+    return this._totalCount;
+  }
+
+  get limit(): number {
+    return this._limit;
   }
 }
 

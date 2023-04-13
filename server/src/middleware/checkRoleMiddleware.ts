@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import jwt, { Jwt } from 'jsonwebtoken';
 
 import ApiError from '../error/ApiError';
-import { ICheckRoleMiddlewareRequest, TRole } from './types';
+import { ICheckRoleMiddlewareRequest, TUserRole } from './types';
 
-function checkRole(role: TRole) {
+function checkRole(role: TUserRole) {
   return function check(req: Request, res: Response, next: NextFunction): Response | void {
     if (req.method === 'OPTIONS') {
       next();

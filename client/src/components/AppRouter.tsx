@@ -6,10 +6,10 @@ import { Context } from '../index';
 import { authRoutes, publicRoutes } from '../routes';
 
 const AppRouter = observer(() => {
-  const { user } = useContext(Context);
+  const { userStore } = useContext(Context);
   return (
     <Routes>
-      {user.isAuth &&
+      {userStore.isAuth &&
         authRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
