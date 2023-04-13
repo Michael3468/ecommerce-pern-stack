@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
 import { createBrand } from '../../http/deviceAPI';
@@ -11,11 +11,27 @@ type Props = {
 const CreateBrand: FC<Props> = ({ show, onHide }) => {
   const [value, setValue] = useState<string>('');
   const [addBrandDisabledButtonStatus, setAddBrandDisabledButtonStatus] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  // TODO: when addBrand check if it is already exists
   const addBrand = () => {
-    createBrand({ name: value }).then(() => setValue(''));
-    onHide();
+    createBrand({ name: value })
+      .then(() => {
+        onHide();
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+
+        if (error.response.data.message === 'name must be unique') {
+          setErrorMessage('Brand already exists');
+        }
+      })
+      .finally(() => setValue(''));
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    setErrorMessage('');
   };
 
   useEffect(() => {
@@ -33,11 +49,8 @@ const CreateBrand: FC<Props> = ({ show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder="Enter Brand name"
-          />
+          <Form.Control value={value} onChange={handleChange} placeholder="Enter Brand name" />
+          <Modal.Title className="mt-2 text-danger">{errorMessage}</Modal.Title>
         </Form>
       </Modal.Body>
       <Modal.Footer>
