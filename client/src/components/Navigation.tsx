@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../constants';
+import { ROUTE } from '../constants';
 import { Context } from '../index';
 
 const Navigation = observer(() => {
@@ -18,13 +18,13 @@ const Navigation = observer(() => {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <NavLink to={SHOP_ROUTE} style={{ color: 'white' }}>
+        <NavLink to={ROUTE.SHOP} style={{ color: 'white' }}>
           BuyDevice
         </NavLink>
 
         {userStore.isAuth ? (
           <Nav style={{ color: 'white' }}>
-            <Button variant="outline-light" onClick={() => navigate(ADMIN_ROUTE)}>
+            <Button variant="outline-light" onClick={() => navigate(ROUTE.ADMIN)}>
               Admin Panel
             </Button>
             <Button variant="outline-light" className="ms-2" onClick={handleLogOutButton}>
@@ -33,7 +33,7 @@ const Navigation = observer(() => {
           </Nav>
         ) : (
           <Nav style={{ color: 'white' }}>
-            <Button variant="outline-light" onClick={() => navigate(LOGIN_ROUTE)}>
+            <Button variant="outline-light" onClick={() => navigate(ROUTE.LOGIN)}>
               Log In
             </Button>
           </Nav>

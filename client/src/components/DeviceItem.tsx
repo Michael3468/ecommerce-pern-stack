@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import noImage from '../assets/images/no-image.png';
 import star from '../assets/images/star.svg';
-import { DEVICE_ROUTE } from '../constants';
+import { ROUTE } from '../constants';
 import { fetchOneBrand, fetchOneDevice } from '../http/deviceAPI';
 import { IDevice } from '../types';
 
@@ -27,7 +27,7 @@ const DeviceItem: FC<Props> = ({ device }) => {
   return (
     <Col
       className="d-flex align-items-center mt-3"
-      onClick={() => navigate(`${DEVICE_ROUTE}/${device.id}`)}
+      onClick={() => navigate(`${ROUTE.DEVICE}/${device.id}`)}
     >
       <Card style={{ cursor: 'pointer', borderColor: '#d2d0f4' }}>
         <Image

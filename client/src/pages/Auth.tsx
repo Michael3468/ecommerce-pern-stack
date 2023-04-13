@@ -3,13 +3,13 @@ import { useContext, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, headerHeight } from '../constants';
+import { ROUTE, headerHeight } from '../constants';
 import { login, registration } from '../http/userAPI';
 import { Context } from '../index';
 
 const Auth = observer(() => {
   const location = useLocation();
-  const isLoginRoute = location.pathname === LOGIN_ROUTE;
+  const isLoginRoute = location.pathname === ROUTE.LOGIN;
   const { userStore } = useContext(Context);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const Auth = observer(() => {
 
       userStore.setUser(user);
       userStore.setIsAuth(true);
-      navigate(SHOP_ROUTE);
+      navigate(ROUTE.SHOP);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
@@ -62,12 +62,12 @@ const Auth = observer(() => {
               {isLoginRoute ? (
                 <div>
                   {'No account? '}
-                  <NavLink to={REGISTRATION_ROUTE}>Register</NavLink>
+                  <NavLink to={ROUTE.REGISTRATION}>Register</NavLink>
                 </div>
               ) : (
                 <div>
                   {'Have account? '}
-                  <NavLink to={LOGIN_ROUTE}>Log In</NavLink>
+                  <NavLink to={ROUTE.LOGIN}>Log In</NavLink>
                 </div>
               )}
             </Col>
