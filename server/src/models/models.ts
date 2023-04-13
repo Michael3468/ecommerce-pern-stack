@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 
+import { USER_ROLE } from '../constants';
 import sequelize from '../db';
 import {
   IUser,
@@ -26,7 +27,7 @@ const User = sequelize.define<IUser, IUserAttributes>('user', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING, unique: true },
   password: { type: DataTypes.STRING },
-  role: { type: DataTypes.STRING, defaultValue: 'USER' },
+  role: { type: DataTypes.STRING, defaultValue: USER_ROLE.USER },
 });
 
 const Basket = sequelize.define<IBasket, IBasketAttributes>('basket', {

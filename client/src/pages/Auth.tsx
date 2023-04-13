@@ -3,9 +3,9 @@ import { useContext, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, headerHeight } from '../constants';
 import { login, registration } from '../http/userAPI';
 import { Context } from '../index';
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, headerHeight } from '../utils/constants';
 
 const Auth = observer(() => {
   const location = useLocation();

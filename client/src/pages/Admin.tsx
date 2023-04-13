@@ -4,7 +4,7 @@ import { Button, Col, Container } from 'react-bootstrap';
 import CreateBrand from '../components/modals/CreateBrand';
 import CreateDevice from '../components/modals/CreateDevice';
 import CreateType from '../components/modals/CreateType';
-import { headerHeight } from '../utils/constants';
+import { headerHeight } from '../constants';
 
 const Admin = () => {
   const [brandVisible, setBrandVisible] = useState<boolean>(false);

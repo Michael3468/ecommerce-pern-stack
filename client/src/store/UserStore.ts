@@ -1,8 +1,10 @@
 import { makeAutoObservable } from 'mobx';
 
-// TODO common interfaces with backend??
-type TUserRole = 'ADMIN' | 'USER';
+import { USER_ROLE } from '../constants';
 
+type TUserRole = typeof USER_ROLE.ADMIN | typeof USER_ROLE.USER;
+
+// TODO: move export interface ot types
 export interface IUser {
   id: number;
   email: string;

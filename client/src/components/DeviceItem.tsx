@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 import noImage from '../assets/images/no-image.png';
 import star from '../assets/images/star.svg';
+import { DEVICE_ROUTE } from '../constants';
 import { fetchOneBrand, fetchOneDevice } from '../http/deviceAPI';
 import { IDevice } from '../types';
-import { DEVICE_ROUTE } from '../utils/constants';
 
 type Props = {
   device: IDevice;

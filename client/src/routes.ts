@@ -1,10 +1,5 @@
 import React from 'react';
 
-import Admin from './pages/Admin';
-import Auth from './pages/Auth';
-import Basket from './pages/Basket';
-import Device from './pages/Device';
-import Shop from './pages/Shop';
 import {
   ADMIN_ROUTE,
   BASKET_ROUTE,
@@ -12,7 +7,13 @@ import {
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,
   SHOP_ROUTE,
-} from './utils/constants';
+} from './constants';
+// TODO: reexport pages from pages/index.ts
+import Admin from './pages/Admin';
+import Auth from './pages/Auth';
+import Basket from './pages/Basket';
+import Device from './pages/Device';
+import Shop from './pages/Shop';
 
 type TRoute = {
   path: string;

@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../constants';
 import { Context } from '../index';
-import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/constants';
 
 const Navigation = observer(() => {
   const { userStore } = useContext(Context);
