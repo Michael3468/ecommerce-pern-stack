@@ -5,12 +5,11 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import { login, registration } from '../http/userAPI';
 import { Context } from '../index';
-import { IUser } from '../store/UserStore';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE, headerHeight } from '../utils/constants';
 
 const Auth = observer(() => {
   const location = useLocation();
-  const isLogin = location.pathname === LOGIN_ROUTE;
+  const isLoginRoute = location.pathname === LOGIN_ROUTE;
   const { userStore } = useContext(Context);
   const navigate = useNavigate();
 
@@ -19,14 +18,11 @@ const Auth = observer(() => {
 
   const click = async () => {
     try {
-      let data;
-      if (isLogin) {
-        data = await login(email, password);
-      } else {
-        data = await registration(email, password);
-      }
+      const user = isLoginRoute
+        ? await login(email, password)
+        : await registration(email, password);
 
-      userStore.setUser(data as IUser);
+      userStore.setUser(user);
       userStore.setIsAuth(true);
       navigate(SHOP_ROUTE);
     } catch (error) {
@@ -43,7 +39,7 @@ const Auth = observer(() => {
       style={{ height: window.innerHeight - headerHeight }}
     >
       <Card style={{ width: '320px', background: 'rgb(191, 191, 191)' }} className="p-3">
-        <h2 className="ms-auto me-auto">{isLogin ? 'Authorization' : 'Registration'}</h2>
+        <h2 className="ms-auto me-auto">{isLoginRoute ? 'Authorization' : 'Registration'}</h2>
 
         <Form className="d-flex flex-column">
           <Form.Control
@@ -63,7 +59,7 @@ const Auth = observer(() => {
 
           <Row className="d-flex justify-content-between align-items-center pl-3 pr-3 mt-3">
             <Col sm={7}>
-              {isLogin ? (
+              {isLoginRoute ? (
                 <div>
                   {'No account? '}
                   <NavLink to={REGISTRATION_ROUTE}>Register</NavLink>
@@ -77,13 +73,8 @@ const Auth = observer(() => {
             </Col>
 
             <Col sm={5} className="d-flex">
-              <Button
-                className="ms-auto"
-                variant="outline-success"
-                // onClick={() => handleAuthButtonClick(isLogin)} // TODO
-                onClick={click}
-              >
-                {isLogin ? 'Log In' : 'Register'}
+              <Button className="ms-auto" variant="outline-success" onClick={click}>
+                {isLoginRoute ? 'Log In' : 'Register'}
               </Button>
             </Col>
           </Row>
