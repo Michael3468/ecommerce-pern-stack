@@ -4,10 +4,10 @@ import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { ROUTE } from '../constants';
-import { Context } from '../index';
+import { StoreContext } from '../index';
 
 const Navigation = observer(() => {
-  const { userStore } = useContext(Context);
+  const { userStore } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const handleLogOutButton = () => {

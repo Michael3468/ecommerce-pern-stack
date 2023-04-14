@@ -5,12 +5,12 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import { ROUTE, headerHeight } from '../constants';
 import { login, registration } from '../http/userAPI';
-import { Context } from '../index';
+import { StoreContext } from '../index';
 
 const Auth = observer(() => {
   const location = useLocation();
   const isLoginRoute = location.pathname === ROUTE.LOGIN;
-  const { userStore } = useContext(Context);
+  const { userStore } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>('');

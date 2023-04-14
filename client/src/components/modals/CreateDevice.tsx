@@ -3,8 +3,9 @@ import { ChangeEvent, FC, useContext, useEffect, useState } from 'react';
 import { Button, Card, Col, Dropdown, Form, Modal, Row } from 'react-bootstrap';
 
 import { createDevice, fetchBrands, fetchTypes } from '../../http/deviceAPI';
-import { Context } from '../../index';
+import { StoreContext } from '../../index';
 
+// TODO: TDeviceInfo ?
 type TInfo = {
   id: number;
   title: string;
@@ -18,7 +19,7 @@ type Props = {
 
 // TODO storybook
 const CreateDevice: FC<Props> = observer(({ show, onHide }) => {
-  const { deviceStore } = useContext(Context);
+  const { deviceStore } = useContext(StoreContext);
   const [name, setName] = useState<string>('');
   const [price, setPrice] = useState<number>(0);
   const [file, setFile] = useState<File | null>(null);
