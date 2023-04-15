@@ -1,19 +1,37 @@
-import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import noImage from '../assets/images/no-image.png';
 import bigStar from '../assets/images/star.svg';
 import { fetchOneDevice } from '../http/deviceAPI';
+import { StoreContext } from '../index';
 import { IDevice } from '../types';
 
-const Device = () => {
+const Device = observer(() => {
+  const { cartStore } = useContext(StoreContext);
   const [device, setDevice] = useState<IDevice | null>(null);
+  const [devicesInCart, setDevicesInCart] = useState<number>(0);
   const { id } = useParams();
 
+  const addToCart = () => {
+    if (device) {
+      cartStore.addDeviceToCart(device);
+      setDevicesInCart((prev) => prev + 1);
+    }
+  };
+
+  const deleteFromCart = () => {
+    if (device) {
+      cartStore.deleteDeviceFromCart(device);
+      setDevicesInCart((prev) => prev - 1);
+    }
+  };
+
   useEffect(() => {
-    fetchOneDevice(Number(id)).then((data) => {
-      setDevice(data);
+    fetchOneDevice(Number(id)).then((deviceItem) => {
+      setDevice(deviceItem);
     });
   }, [id]);
 
@@ -53,7 +71,12 @@ const Device = () => {
             style={{ width: 300, height: 300, fontSize: 32, border: '5px solid lightgray' }}
           >
             <h3>{`From: ${device?.price ? device.price : '???'} ¥`}</h3>
-            <Button variant="outline-dark">Add to Cart</Button>
+            <Button variant="outline-dark" onClick={addToCart}>
+              {`Add to Cart (${devicesInCart})`}
+            </Button>
+            <Button variant="outline-dark" onClick={deleteFromCart} disabled={devicesInCart === 0}>
+              Delete
+            </Button>
           </Card>
         </Col>
       </Row>
@@ -76,6 +99,6 @@ const Device = () => {
       </Row>
     </Container>
   );
-};
+});
 
 export default Device;
