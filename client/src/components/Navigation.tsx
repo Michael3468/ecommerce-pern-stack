@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 import { USER_ROLE, ROUTE, mainTheme } from '../constants';
 import { StoreContext } from '../index';
+import AdminPanelButton from './AdminPanelButton';
 import CartButton from './CartButton';
 
 const Navigation = observer(() => {
@@ -25,12 +26,9 @@ const Navigation = observer(() => {
 
         {userStore.isAuth ? (
           <Nav style={{ color: mainTheme.link.color }}>
-            {userStore.user?.role === USER_ROLE.ADMIN && (
-              <Button variant="outline-light" onClick={() => navigate(ROUTE.ADMIN)}>
-                Admin Panel
-              </Button>
-            )}
             <CartButton />
+
+            {userStore.user?.role === USER_ROLE.ADMIN && <AdminPanelButton />}
 
             <Button variant="outline-light" className="ms-2" onClick={handleLogOutButton}>
               Log Out

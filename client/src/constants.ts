@@ -21,7 +21,7 @@ const mainTheme = {
     color: 'white',
   },
 
-  cartIcon: {
+  navbarIcon: {
     size: 36,
   },
 };
