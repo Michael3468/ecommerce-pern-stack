@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
+import { BsCart3 } from 'react-icons/bs';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { USER_ROLE, ROUTE } from '../constants';
@@ -30,6 +31,12 @@ const Navigation = observer(() => {
                 Admin Panel
               </Button>
             )}
+            {/* TODO: add span with number */}
+            <BsCart3
+              className="mt-auto mb-auto me-3"
+              style={{ fontSize: '36px', cursor: 'pointer' }}
+              onClick={() => navigate(ROUTE.CART)}
+            />
             <Button variant="outline-light" className="ms-2" onClick={handleLogOutButton}>
               Log Out
             </Button>

@@ -17,23 +17,28 @@ const Device = observer(() => {
 
   const addToCart = () => {
     if (device) {
-      cartStore.addDeviceToCart(device);
+      cartStore.addDeviceToCart(device.id);
       setDevicesInCart((prev) => prev + 1);
     }
   };
 
-  const deleteFromCart = () => {
+  const removeFromCart = () => {
     if (device) {
-      cartStore.deleteDeviceFromCart(device);
+      cartStore.removeDeviceFromCart(device.id);
       setDevicesInCart((prev) => prev - 1);
     }
   };
 
   useEffect(() => {
-    fetchOneDevice(Number(id)).then((deviceItem) => {
+    const deviceId = Number(id);
+
+    fetchOneDevice(deviceId).then((deviceItem) => {
       setDevice(deviceItem);
     });
-  }, [id]);
+
+    const devicesInCartStore = cartStore.userCart.get(deviceId) || 0;
+    setDevicesInCart(devicesInCartStore);
+  }, [cartStore.userCart, id]);
 
   return (
     <Container className="mt-3">
@@ -70,11 +75,11 @@ const Device = observer(() => {
             className="d-flex flex-column align-items-center justify-content-around ms-auto me-auto"
             style={{ width: 300, height: 300, fontSize: 32, border: '5px solid lightgray' }}
           >
-            <h3>{`From: ${device?.price ? device.price : '???'} ¥`}</h3>
+            <h3>{`From: ${device?.price ? device.price : '???'} ₽`}</h3>
             <Button variant="outline-dark" onClick={addToCart}>
               {`Add to Cart (${devicesInCart})`}
             </Button>
-            <Button variant="outline-dark" onClick={deleteFromCart} disabled={devicesInCart === 0}>
+            <Button variant="outline-dark" onClick={removeFromCart} disabled={devicesInCart === 0}>
               Delete
             </Button>
           </Card>

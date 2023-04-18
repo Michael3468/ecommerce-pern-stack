@@ -1,11 +1,10 @@
 import { makeAutoObservable } from 'mobx';
 
-import { IDevice } from './types';
-
+type TDeviceId = number;
 type TDeviceCount = number;
 
 class CartStore {
-  private _userCart: Map<IDevice, TDeviceCount>;
+  private _userCart: Map<TDeviceId, TDeviceCount>;
 
   constructor() {
     this._userCart = new Map();
@@ -13,22 +12,22 @@ class CartStore {
     makeAutoObservable(this);
   }
 
-  addDeviceToCart(device: IDevice): Map<IDevice, TDeviceCount> {
-    const deviceCount = this._userCart.get(device) || 0;
+  addDeviceToCart(deviceId: number): Map<TDeviceId, TDeviceCount> {
+    const devicesInCart = this._userCart.get(deviceId) || 0;
 
-    return deviceCount > 0
-      ? this._userCart.set(device, deviceCount + 1)
-      : this._userCart.set(device, 1);
+    return devicesInCart
+      ? this._userCart.set(deviceId, devicesInCart + 1)
+      : this._userCart.set(deviceId, 1);
   }
 
-  deleteDeviceFromCart(device: IDevice): Map<IDevice, TDeviceCount> {
-    const deviceCount = this._userCart.get(device) || 0;
+  removeDeviceFromCart(deviceId: number): Map<TDeviceId, TDeviceCount> {
+    const devicesInCart = this._userCart.get(deviceId) || 0;
 
-    if (deviceCount > 1) {
-      return this._userCart.set(device, deviceCount - 1);
+    if (devicesInCart > 1) {
+      return this._userCart.set(deviceId, devicesInCart - 1);
     }
 
-    this._userCart.delete(device);
+    this._userCart.delete(deviceId);
     return this._userCart;
   }
 
