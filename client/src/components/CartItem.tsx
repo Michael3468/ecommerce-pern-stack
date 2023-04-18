@@ -44,6 +44,7 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
       <Row className="p-3">
         <div className="d-flex justify-content-center justify-content-sm-between flex-column flex-sm-row">
           <img
+            className="ms-auto me-auto"
             style={{
               maxWidth: 250,
               maxHeight: 250,
@@ -57,7 +58,7 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
 
           {/* price-and-count */}
           <div
-            className="d-flex flex-column justify-content-center align-items-center me-5 me-sm-2"
+            className="d-flex ms-auto me-auto flex-column justify-content-center align-items-center"
             style={{
               maxWidth: 250,
               maxHeight: 250,
