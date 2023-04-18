@@ -7,15 +7,11 @@ import { USER_ROLE, ROUTE, mainTheme } from '../constants';
 import { StoreContext } from '../index';
 import AdminPanelButton from './AdminPanelButton';
 import CartButton from './CartButton';
+import LogoutButton from './LogoutButton';
 
 const Navigation = observer(() => {
   const { userStore } = useContext(StoreContext);
   const navigate = useNavigate();
-
-  const handleLogOutButton = () => {
-    userStore.setUser(null);
-    userStore.setIsAuth(false);
-  };
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -30,9 +26,7 @@ const Navigation = observer(() => {
 
             {userStore.user?.role === USER_ROLE.ADMIN && <AdminPanelButton />}
 
-            <Button variant="outline-light" className="ms-2" onClick={handleLogOutButton}>
-              Log Out
-            </Button>
+            <LogoutButton />
           </Nav>
         ) : (
           <Nav style={{ color: mainTheme.link.color }}>
