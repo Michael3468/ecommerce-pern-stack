@@ -9,7 +9,7 @@ const AdminPanelButton = () => {
   const navigate = useNavigate();
 
   return (
-    <Button variant="outline-light" className="border-0" onClick={() => navigate(ROUTE.ADMIN)}>
+    <Button variant="outline-light" className="ms-2 border-0" onClick={() => navigate(ROUTE.ADMIN)}>
       <IoMdSettings className={`${styles.icon}`} style={{ fontSize: mainTheme.navbarIcon.size }} />
       <span className={`${styles.text}`}>Admin Panel</span>
     </Button>
