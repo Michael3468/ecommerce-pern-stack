@@ -44,7 +44,6 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
       <Row className="p-3">
         <div className="d-flex justify-content-between">
           <img
-            className="mb-3"
             style={{
               maxWidth: 250,
               maxHeight: 250,

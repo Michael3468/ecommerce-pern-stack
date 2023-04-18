@@ -13,13 +13,13 @@ const authRoutes: TRoute[] = [
     path: ROUTE.ADMIN,
     Component: Admin,
   },
+];
+
+const publicRoutes: TRoute[] = [
   {
     path: ROUTE.CART,
     Component: Cart,
   },
-];
-
-const publicRoutes: TRoute[] = [
   {
     path: ROUTE.SHOP,
     Component: Shop,
