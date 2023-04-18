@@ -42,7 +42,7 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
   return (
     <Card className={`${styles.shadow} w-100 mt-3 ms-auto me-auto`} style={{ maxWidth: 700 }}>
       <Row className="p-3">
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-center justify-content-sm-between flex-column flex-sm-row">
           <img
             style={{
               maxWidth: 250,
@@ -50,7 +50,6 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
               width: 250,
               height: 250,
               objectFit: 'contain',
-              border: '1px solid #d7d7d7',
               borderRadius: 5,
             }}
             src={`${process.env.REACT_APP_API_URL}${device?.img}`}
@@ -58,7 +57,7 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
 
           {/* price-and-count */}
           <div
-            className="d-flex flex-column justify-content-center align-items-center me-5"
+            className="d-flex flex-column justify-content-center align-items-center me-5 me-sm-2"
             style={{
               maxWidth: 250,
               maxHeight: 250,

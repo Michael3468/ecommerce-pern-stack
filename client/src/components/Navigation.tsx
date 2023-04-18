@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { USER_ROLE, ROUTE } from '../constants';
+import { USER_ROLE, ROUTE, mainTheme } from '../constants';
 import { StoreContext } from '../index';
 import CartButton from './CartButton';
 
@@ -19,13 +19,12 @@ const Navigation = observer(() => {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        {/* TODO: add color 'white' to 'constants' theme */}
-        <NavLink to={ROUTE.SHOP} style={{ color: 'white' }}>
+        <NavLink to={ROUTE.SHOP} style={{ color: mainTheme.link.color }}>
           BuyDevice
         </NavLink>
 
         {userStore.isAuth ? (
-          <Nav style={{ color: 'white' }}>
+          <Nav style={{ color: mainTheme.link.color }}>
             {userStore.user?.role === USER_ROLE.ADMIN && (
               <Button variant="outline-light" onClick={() => navigate(ROUTE.ADMIN)}>
                 Admin Panel
@@ -38,7 +37,7 @@ const Navigation = observer(() => {
             </Button>
           </Nav>
         ) : (
-          <Nav style={{ color: 'white' }}>
+          <Nav style={{ color: mainTheme.link.color }}>
             <CartButton />
 
             <Button variant="outline-light" onClick={() => navigate(ROUTE.LOGIN)}>
