@@ -78,7 +78,7 @@ const CartItem: FC<Props> = ({ deviceId, deviceData }) => {
                 to={`${process.env.REACT_APP_URL}device/${deviceId}`}
                 style={{ color: 'black' }}
               >
-                <h2 className="text-center">{device?.name}</h2>
+                <h2 className={`text-center ${styles.text_shadow}`}>{device?.name}</h2>
               </Link>
               {/* TODO: add choose currency, constants */}
               <h4 className="text-center">
