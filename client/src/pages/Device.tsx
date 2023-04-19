@@ -7,7 +7,6 @@ import noImage from '../assets/images/no-image.png';
 import bigStar from '../assets/images/star.svg';
 import { fetchOneDevice } from '../http/deviceAPI';
 import { StoreContext } from '../index';
-import { saveCartToLocalStorage } from '../libs/common';
 import { IDevice } from '../types';
 
 const Device = observer(() => {
@@ -21,7 +20,7 @@ const Device = observer(() => {
       cartStore.addDeviceToCart(device.id);
       setDevicesInCart((prev) => prev + 1);
 
-      saveCartToLocalStorage(cartStore);
+      cartStore.saveCartToLocalStorage();
     }
   };
 
@@ -30,7 +29,7 @@ const Device = observer(() => {
       cartStore.removeDeviceFromCart(device.id);
       setDevicesInCart((prev) => prev - 1);
 
-      saveCartToLocalStorage(cartStore);
+      cartStore.saveCartToLocalStorage();
     }
   };
 

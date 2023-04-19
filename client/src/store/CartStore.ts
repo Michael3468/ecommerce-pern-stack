@@ -31,6 +31,11 @@ class CartStore {
     return this._userCart;
   }
 
+  saveCartToLocalStorage(): void {
+    const stringifiedCart = JSON.stringify(Array.from(this._userCart.entries()));
+    localStorage.setItem('cart', stringifiedCart);
+  }
+
   get userCart() {
     return this._userCart;
   }
