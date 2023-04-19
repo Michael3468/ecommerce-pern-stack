@@ -50,6 +50,7 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
         <div className="d-flex justify-content-center justify-content-sm-between flex-column flex-sm-row">
           <img
             className="ms-auto me-auto"
+            // TODO: 250 to constants
             style={{
               maxWidth: 250,
               maxHeight: 250,
@@ -61,6 +62,7 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
             src={`${process.env.REACT_APP_API_URL}${device?.img}`}
           />
 
+          {/* TODO: move to separate component */}
           {/* price-and-count */}
           <div
             className="d-flex ms-auto me-auto flex-column justify-content-center align-items-center"
@@ -78,10 +80,13 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
               >
                 <h2 className="text-center">{device?.name}</h2>
               </Link>
-              {/* TODO: add choose currency */}
-              <h4 className="text-center">{`Price: ${device?.price} ₽`}</h4>
+              {/* TODO: add choose currency, constants */}
+              <h4 className="text-center">
+                {/* TODO: change '' to spinner */}
+                {`Price: ${device?.price !== undefined ? device.price : ''} ₽`}
+              </h4>
               <h5 className="mb-4 text-center">
-                {`Total: ${device?.price && device.price * devicesInCart} ₽`}
+                {`Total: ${device?.price !== undefined ? device.price * devicesInCart : ''} ₽`}
               </h5>
             </div>
 
