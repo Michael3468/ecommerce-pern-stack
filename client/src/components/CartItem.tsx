@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from '../assets/styles/common.module.css';
 import { fetchOneDevice } from '../http/deviceAPI';
 import { StoreContext } from '../index';
+import { saveCartToLocalStorage } from '../libs/common';
 import { IDevice } from '../types';
 
 type Props = {
@@ -25,11 +26,15 @@ const CartItem: FC<Props> = ({ deviceId, count }) => {
   const removeDevice = () => {
     cartStore.removeDeviceFromCart(deviceId);
     updateDevicesCount(deviceId);
+
+    saveCartToLocalStorage(cartStore);
   };
 
   const addDevice = () => {
     cartStore.addDeviceToCart(deviceId);
     updateDevicesCount(deviceId);
+
+    saveCartToLocalStorage(cartStore);
   };
 
   useEffect(() => {

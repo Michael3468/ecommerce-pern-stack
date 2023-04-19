@@ -7,7 +7,7 @@ class CartStore {
   private _userCart: Map<TDeviceId, TDeviceCount>;
 
   constructor() {
-    this._userCart = new Map();
+    this._userCart = this.initCartFromLocalStorage();
 
     makeAutoObservable(this);
   }
@@ -33,6 +33,15 @@ class CartStore {
 
   get userCart() {
     return this._userCart;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private initCartFromLocalStorage(): Map<TDeviceId, TDeviceCount> {
+    const localStorageCart = localStorage.getItem('cart');
+    const userCartStore = localStorageCart
+      ? new Map<TDeviceId, TDeviceCount>(JSON.parse(localStorageCart))
+      : new Map<TDeviceId, TDeviceCount>();
+    return userCartStore;
   }
 }
 
