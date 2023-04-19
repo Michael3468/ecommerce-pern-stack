@@ -1,7 +1,9 @@
+@import '../../assets/styles/constants.module.scss';
+
 .icon {
   display: block;
   
-  @media screen and (min-width: 428px) {
+  @media screen and (min-width: $navigation-icons-min-width-breakpoint) {
     display: none;
   }
 }
@@ -9,7 +11,7 @@
 .text {
   display: none;
   
-  @media screen and (min-width: 428px) {
+  @media screen and (min-width: $navigation-icons-min-width-breakpoint) {
     display: block;
   }
 }
