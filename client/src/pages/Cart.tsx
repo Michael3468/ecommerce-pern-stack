@@ -10,7 +10,7 @@ const Cart = () => {
   return (
     <Container>
       {Array.from(cartStore.userCart).map((item) => (
-        <CartItem key={item[0]} deviceId={item[0]} count={item[1]} />
+        <CartItem key={item[0]} deviceId={item[0]} deviceData={item[1]} />
       ))}
     </Container>
   );

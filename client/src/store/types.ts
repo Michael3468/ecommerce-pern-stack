@@ -35,4 +35,10 @@ interface IUser {
   password: string;
   role: TUserRole;
 }
-export type { IType, IBrand, IDevice, IDeviceInfo, IUser, TUserRole };
+
+type TDeviceData = {
+  count: number;
+  totalPrice: number;
+};
+
+export type { IType, IBrand, IDevice, IDeviceInfo, IUser, TUserRole, TDeviceData };

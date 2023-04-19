@@ -1,10 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 
+import { TDeviceData } from './types';
+
 type TDeviceId = number;
-type TDeviceCount = number;
 
 class CartStore {
-  private _userCart: Map<TDeviceId, TDeviceCount>;
+  private _userCart: Map<TDeviceId, TDeviceData>;
 
   constructor() {
     this._userCart = this.initCartFromLocalStorage();
@@ -12,19 +13,21 @@ class CartStore {
     makeAutoObservable(this);
   }
 
-  addDeviceToCart(deviceId: number): Map<TDeviceId, TDeviceCount> {
-    const devicesInCart = this._userCart.get(deviceId) || 0;
+  addDeviceToCart(deviceId: number, price: number): Map<TDeviceId, TDeviceData> {
+    const devicesInCart = this._userCart.get(deviceId) || null;
+    const newCount = devicesInCart?.count ? devicesInCart.count + 1 : 1;
 
     return devicesInCart
-      ? this._userCart.set(deviceId, devicesInCart + 1)
-      : this._userCart.set(deviceId, 1);
+      ? this._userCart.set(deviceId, { count: newCount, totalPrice: price * newCount })
+      : this._userCart.set(deviceId, { count: 1, totalPrice: price });
   }
 
-  removeDeviceFromCart(deviceId: number): Map<TDeviceId, TDeviceCount> {
-    const devicesInCart = this._userCart.get(deviceId) || 0;
+  removeDeviceFromCart(deviceId: number, price: number): Map<TDeviceId, TDeviceData> {
+    const devicesInCart = this._userCart.get(deviceId) || null;
+    const newCount = devicesInCart?.count ? devicesInCart.count - 1 : 0;
 
-    if (devicesInCart > 1) {
-      return this._userCart.set(deviceId, devicesInCart - 1);
+    if (devicesInCart?.count && devicesInCart?.count > 1) {
+      return this._userCart.set(deviceId, { count: newCount, totalPrice: price * newCount });
     }
 
     this._userCart.delete(deviceId);
@@ -41,11 +44,11 @@ class CartStore {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private initCartFromLocalStorage(): Map<TDeviceId, TDeviceCount> {
+  private initCartFromLocalStorage(): Map<TDeviceId, TDeviceData> {
     const localStorageCart = localStorage.getItem('cart');
     const userCartStore = localStorageCart
-      ? new Map<TDeviceId, TDeviceCount>(JSON.parse(localStorageCart))
-      : new Map<TDeviceId, TDeviceCount>();
+      ? new Map<TDeviceId, TDeviceData>(JSON.parse(localStorageCart))
+      : new Map<TDeviceId, TDeviceData>();
     return userCartStore;
   }
 }

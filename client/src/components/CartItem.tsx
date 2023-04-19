@@ -5,32 +5,33 @@ import { Link } from 'react-router-dom';
 import styles from '../assets/styles/common.module.css';
 import { fetchOneDevice } from '../http/deviceAPI';
 import { StoreContext } from '../index';
-import { IDevice } from '../types';
+import { IDevice, TDeviceData } from '../types';
 
 type Props = {
   deviceId: number;
-  count: number;
+  deviceData: TDeviceData;
 };
 
-const CartItem: FC<Props> = ({ deviceId, count }) => {
+const CartItem: FC<Props> = ({ deviceId, deviceData }) => {
   const [device, setDevice] = useState<IDevice | null>(null);
-  const [devicesInCart, setDevicesInCart] = useState<number>(count);
+  const [devicesInCart, setDevicesInCart] = useState<number>(deviceData.count);
   const { cartStore } = useContext(StoreContext);
 
   const updateDevicesCount = (devId: number) => {
-    const devicesInCartStore = cartStore.userCart.get(devId) || 0;
-    setDevicesInCart(devicesInCartStore);
+    const devicesInCartStore = cartStore.userCart.get(devId) || null;
+    const newCount = devicesInCartStore?.count ? devicesInCartStore.count : 0;
+    setDevicesInCart(newCount);
   };
 
   const removeDevice = () => {
-    cartStore.removeDeviceFromCart(deviceId);
+    cartStore.removeDeviceFromCart(deviceId, device?.price || 0);
     updateDevicesCount(deviceId);
 
     cartStore.saveCartToLocalStorage();
   };
 
   const addDevice = () => {
-    cartStore.addDeviceToCart(deviceId);
+    cartStore.addDeviceToCart(deviceId, device?.price || 0);
     updateDevicesCount(deviceId);
 
     cartStore.saveCartToLocalStorage();

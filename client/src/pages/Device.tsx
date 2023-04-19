@@ -17,7 +17,7 @@ const Device = observer(() => {
 
   const addToCart = () => {
     if (device) {
-      cartStore.addDeviceToCart(device.id);
+      cartStore.addDeviceToCart(device.id, device.price);
       setDevicesInCart((prev) => prev + 1);
 
       cartStore.saveCartToLocalStorage();
@@ -26,7 +26,7 @@ const Device = observer(() => {
 
   const removeFromCart = () => {
     if (device) {
-      cartStore.removeDeviceFromCart(device.id);
+      cartStore.removeDeviceFromCart(device.id, device.price);
       setDevicesInCart((prev) => prev - 1);
 
       cartStore.saveCartToLocalStorage();
@@ -40,8 +40,10 @@ const Device = observer(() => {
       setDevice(deviceItem);
     });
 
-    const devicesInCartStore = cartStore.userCart.get(deviceId) || 0;
-    setDevicesInCart(devicesInCartStore);
+    const devicesInCartStore = cartStore.userCart.get(deviceId) || null;
+    if (devicesInCartStore?.count) {
+      setDevicesInCart(devicesInCartStore.count);
+    }
   }, [cartStore.userCart, id]);
 
   return (
