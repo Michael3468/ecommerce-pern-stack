@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 import ApiError from '../error/ApiError';
-import { User, Basket } from '../models/models';
+import { User, Cart } from '../models/models';
 import { IUserControllerCheckRequest, IUserControllerRegistrationRequest } from './types';
 
 const generateJwt = (id: number, email: string, role: string): string =>
@@ -25,7 +25,7 @@ class UserController {
       const hashPassword = await bcrypt.hash(password, 5);
       const user = await User.create({ email, role, password: hashPassword });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const basket = await Basket.create({ userId: user.id });
+      const cart = await Cart.create({ userId: user.id });
       const token = generateJwt(user.id, user.email, user.role);
 
       return res.json({ token });

@@ -8,17 +8,17 @@ interface IUserAttributes {
 }
 interface IUser extends IUserAttributes, Model {}
 
-interface IBasketAttributes {
+interface ICartAttributes {
   id: number;
 }
 
-interface IBasket extends IBasketAttributes, Model {}
+interface ICart extends ICartAttributes, Model {}
 
-interface IBasketDeviceAttributes {
+interface ICartDeviceAttributes {
   id: number;
 }
 
-interface IBasketDevice extends IBasketAttributes, Model {}
+interface ICartDevice extends ICartAttributes, Model {}
 
 interface ITypeAttributes {
   id: number;
@@ -70,10 +70,10 @@ interface ITypeBrand extends ITypeAttributes, Model {}
 export {
   IUser,
   IUserAttributes,
-  IBasket,
-  IBasketAttributes,
-  IBasketDevice,
-  IBasketDeviceAttributes,
+  ICart,
+  ICartAttributes,
+  ICartDevice,
+  ICartDeviceAttributes,
   IType,
   ITypeAttributes,
   IBrand,

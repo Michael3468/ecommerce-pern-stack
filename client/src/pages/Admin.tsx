@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Col, Container } from 'react-bootstrap';
 
 import { CreateBrand, CreateDevice, CreateType } from '../components/modals';
-import { headerHeight } from '../constants';
+import { mainTheme } from '../constants';
 
 const Admin = () => {
   const [brandVisible, setBrandVisible] = useState<boolean>(false);
@@ -12,7 +12,7 @@ const Admin = () => {
   return (
     <Container
       className="d-flex align-items-center"
-      style={{ height: window.innerHeight - headerHeight }}
+      style={{ height: window.innerHeight - mainTheme.header.height }}
     >
       <Col xs={8} sm={8} md={6} className="d-flex flex-column ms-auto me-auto mt-auto mb-auto">
         <Button variant="outline-dark" className="mt-4" onClick={() => setTypeVisible(true)}>

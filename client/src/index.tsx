@@ -3,26 +3,35 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// TODO: re-export stores from store/index.ts
+import CartStore from './store/CartStore';
 import DeviceStore from './store/DeviceStore';
 import UserStore from './store/UserStore';
 
+interface IStoreContext {
+  userStore: UserStore;
+  deviceStore: DeviceStore;
+  cartStore: CartStore;
+}
 // eslint-disable-next-line import/prefer-default-export
-export const Context = createContext<{ userStore: UserStore; deviceStore: DeviceStore }>({
+export const StoreContext = createContext<IStoreContext>({
   userStore: new UserStore(),
   deviceStore: new DeviceStore(),
+  cartStore: new CartStore(),
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Context.Provider
+    <StoreContext.Provider
       value={{
         userStore: new UserStore(),
         deviceStore: new DeviceStore(),
+        cartStore: new CartStore(),
       }}
     >
       <App />
-    </Context.Provider>
+    </StoreContext.Provider>
   </React.StrictMode>,
 );
 

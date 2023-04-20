@@ -2,10 +2,10 @@ import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { ListGroup } from 'react-bootstrap';
 
-import { Context } from '../index';
+import { StoreContext } from '../index';
 
 const TypeBar = observer(() => {
-  const { deviceStore } = useContext(Context);
+  const { deviceStore } = useContext(StoreContext);
 
   return (
     <ListGroup className="mt-3">

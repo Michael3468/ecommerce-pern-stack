@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { BrowserRouter } from 'react-router-dom';
 
-import { Context } from '.';
+import { StoreContext } from '.';
 import { AppRouter, Navigation } from './components';
 import { check } from './http/userAPI';
 
 const App = observer(() => {
-  const { userStore } = useContext(Context);
+  const { userStore } = useContext(StoreContext);
   const [loading, setLoading] = useState<boolean>(true);
 
   // TODO: change 'data' to something more specific (everywhere)

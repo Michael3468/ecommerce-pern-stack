@@ -4,10 +4,10 @@ import { Col, Container, Row } from 'react-bootstrap';
 
 import { BrandBar, DeviceList, Pages, TypeBar } from '../components';
 import { fetchBrands, fetchDevices, fetchTypes } from '../http/deviceAPI';
-import { Context } from '../index';
+import { StoreContext } from '../index';
 
 const Shop = observer(() => {
-  const { deviceStore } = useContext(Context);
+  const { deviceStore } = useContext(StoreContext);
 
   useEffect(() => {
     fetchTypes().then((data) => deviceStore.setTypes(data));

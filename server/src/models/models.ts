@@ -9,10 +9,10 @@ import {
   IDeviceAttributes,
   IDeviceInfo,
   IDeviceInfoAttributes,
-  IBasket,
-  IBasketAttributes,
-  IBasketDevice,
-  IBasketDeviceAttributes,
+  ICart,
+  ICartAttributes,
+  ICartDevice,
+  ICartDeviceAttributes,
   IType,
   ITypeAttributes,
   IBrand,
@@ -30,11 +30,11 @@ const User = sequelize.define<IUser, IUserAttributes>('user', {
   role: { type: DataTypes.STRING, defaultValue: USER_ROLE.USER },
 });
 
-const Basket = sequelize.define<IBasket, IBasketAttributes>('basket', {
+const Cart = sequelize.define<ICart, ICartAttributes>('cart', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-const BasketDevice = sequelize.define<IBasketDevice, IBasketDeviceAttributes>('basket_device', {
+const CartDevice = sequelize.define<ICartDevice, ICartDeviceAttributes>('cart_device', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
@@ -71,14 +71,14 @@ const TypeBrand = sequelize.define<ITypeBrand, ITypeBrandAttributes>('type_brand
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-User.hasOne(Basket);
-Basket.belongsTo(User);
+User.hasOne(Cart);
+Cart.belongsTo(User);
 
 User.hasMany(Rating);
 Rating.belongsTo(User);
 
-Basket.hasMany(Device);
-Device.belongsTo(Basket);
+Cart.hasMany(Device);
+Device.belongsTo(Cart); // TODO: remove ?
 
 Type.hasMany(Device);
 Device.belongsTo(Type);
@@ -89,8 +89,8 @@ Device.belongsTo(Brand);
 Device.hasMany(Rating);
 Rating.belongsTo(Device);
 
-Device.hasMany(BasketDevice);
-BasketDevice.belongsTo(Device);
+Device.hasMany(CartDevice);
+CartDevice.belongsTo(Device);
 
 Device.hasMany(DeviceInfo, { as: 'info' });
 DeviceInfo.belongsTo(Device);
@@ -98,4 +98,4 @@ DeviceInfo.belongsTo(Device);
 Type.belongsToMany(Brand, { through: TypeBrand });
 Brand.belongsToMany(Type, { through: TypeBrand });
 
-export { User, Basket, BasketDevice, Device, Type, Brand, Rating, TypeBrand, DeviceInfo };
+export { User, Cart, CartDevice, Device, Type, Brand, Rating, TypeBrand, DeviceInfo };

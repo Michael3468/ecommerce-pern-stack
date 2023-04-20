@@ -8,7 +8,7 @@ const registration = async (email: string, password: string): Promise<IUser> => 
   const { data } = await $host.post('api/user/registration', {
     email,
     password,
-    role: USER_ROLE.ADMIN,
+    role: USER_ROLE.USER,
   });
   localStorage.setItem('token', data.token);
   return jwtDecode(data.token);
