@@ -29,7 +29,7 @@ const DeviceItem: FC<Props> = ({ device }) => {
       className="d-flex align-items-center mt-3"
       onClick={() => navigate(`${ROUTE.DEVICE}/${device.id}`)}
     >
-      <Card style={{ cursor: 'pointer', borderColor: '#d2d0f4' }}>
+      <Card style={{ cursor: 'pointer' }}>
         <Image
           style={{ borderRadius: 'inherit' }}
           className="w-100"

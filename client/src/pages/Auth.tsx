@@ -3,14 +3,14 @@ import { useContext, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import { ROUTE, headerHeight } from '../constants';
+import { ROUTE, mainTheme } from '../constants';
 import { login, registration } from '../http/userAPI';
-import { Context } from '../index';
+import { StoreContext } from '../index';
 
 const Auth = observer(() => {
   const location = useLocation();
   const isLoginRoute = location.pathname === ROUTE.LOGIN;
-  const { userStore } = useContext(Context);
+  const { userStore } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>('');
@@ -36,7 +36,7 @@ const Auth = observer(() => {
   return (
     <Container
       className="d-flex justify-content-center align-items-center"
-      style={{ height: window.innerHeight - headerHeight }}
+      style={{ height: window.innerHeight - mainTheme.header.height }}
     >
       <Card style={{ width: '320px', background: 'rgb(191, 191, 191)' }} className="p-3">
         <h2 className="ms-auto me-auto">{isLoginRoute ? 'Authorization' : 'Registration'}</h2>

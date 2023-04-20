@@ -2,10 +2,10 @@ import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { Pagination } from 'react-bootstrap';
 
-import { Context } from '../index';
+import { StoreContext } from '../index';
 
 const Pages = observer(() => {
-  const { deviceStore } = useContext(Context);
+  const { deviceStore } = useContext(StoreContext);
   const pagesCount = Math.ceil(deviceStore.totalCount / deviceStore.limit);
   const pages = [];
 

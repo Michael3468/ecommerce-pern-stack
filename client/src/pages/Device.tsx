@@ -1,21 +1,50 @@
-import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import noImage from '../assets/images/no-image.png';
 import bigStar from '../assets/images/star.svg';
 import { fetchOneDevice } from '../http/deviceAPI';
+import { StoreContext } from '../index';
 import { IDevice } from '../types';
 
-const Device = () => {
+const Device = observer(() => {
+  const { cartStore } = useContext(StoreContext);
   const [device, setDevice] = useState<IDevice | null>(null);
+  const [devicesInCart, setDevicesInCart] = useState<number>(0);
   const { id } = useParams();
 
+  const addToCart = () => {
+    if (device) {
+      cartStore.addDeviceToCart(device.id, device.price);
+      setDevicesInCart((prev) => prev + 1);
+
+      cartStore.saveCartToLocalStorage();
+    }
+  };
+
+  const removeFromCart = () => {
+    if (device) {
+      cartStore.removeDeviceFromCart(device.id, device.price);
+      setDevicesInCart((prev) => prev - 1);
+
+      cartStore.saveCartToLocalStorage();
+    }
+  };
+
   useEffect(() => {
-    fetchOneDevice(Number(id)).then((data) => {
-      setDevice(data);
+    const deviceId = Number(id);
+
+    fetchOneDevice(deviceId).then((deviceItem) => {
+      setDevice(deviceItem);
     });
-  }, [id]);
+
+    const devicesInCartStore = cartStore.userCart.get(deviceId) || null;
+    if (devicesInCartStore?.count) {
+      setDevicesInCart(devicesInCartStore.count);
+    }
+  }, [cartStore.userCart, id]);
 
   return (
     <Container className="mt-3">
@@ -52,8 +81,13 @@ const Device = () => {
             className="d-flex flex-column align-items-center justify-content-around ms-auto me-auto"
             style={{ width: 300, height: 300, fontSize: 32, border: '5px solid lightgray' }}
           >
-            <h3>{`From: ${device?.price ? device.price : '???'} ¥`}</h3>
-            <Button variant="outline-dark">Add to Cart</Button>
+            <h3>{`From: ${device?.price ? device.price : '???'} ₽`}</h3>
+            <Button variant="outline-dark" onClick={addToCart}>
+              {`Add to Cart (${devicesInCart})`}
+            </Button>
+            <Button variant="outline-dark" onClick={removeFromCart} disabled={devicesInCart === 0}>
+              Delete
+            </Button>
           </Card>
         </Col>
       </Row>
@@ -76,6 +110,6 @@ const Device = () => {
       </Row>
     </Container>
   );
-};
+});
 
 export default Device;

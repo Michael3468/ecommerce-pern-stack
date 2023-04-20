@@ -3,7 +3,7 @@ const ROUTE = {
   LOGIN: '/login',
   REGISTRATION: '/registration',
   SHOP: '/',
-  BASKET: '/basket', // TODO: rename to '/cart'
+  CART: '/cart',
   DEVICE: '/device',
 };
 
@@ -12,7 +12,18 @@ const USER_ROLE = {
   USER: 'USER',
 };
 
-// TODO rename to mainTheme.styles.header.height ?
-const headerHeight = 54;
+const mainTheme = {
+  header: {
+    height: 54,
+  },
 
-export { ROUTE, USER_ROLE, headerHeight };
+  link: {
+    color: 'white',
+  },
+
+  navbarIcon: {
+    size: 36,
+  },
+};
+
+export { ROUTE, USER_ROLE, mainTheme };

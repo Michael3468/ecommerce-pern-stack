@@ -7,12 +7,16 @@ import {
   TTypeControllerCreateRequest,
   IUserControllerRegistrationRequest,
 } from './controllers/types';
-import { TUserRole, ICheckAuthMiddlewareRequest, ICheckRoleMiddlewareRequest } from './middleware/types';
 import {
-  IBasket,
-  IBasketAttributes,
-  IBasketDevice,
-  IBasketDeviceAttributes,
+  TUserRole,
+  ICheckAuthMiddlewareRequest,
+  ICheckRoleMiddlewareRequest,
+} from './middleware/types';
+import {
+  ICart,
+  ICartAttributes,
+  ICartDevice,
+  ICartDeviceAttributes,
   IBrand,
   IBrandAttributes,
   IDevice,
@@ -38,10 +42,10 @@ export {
   IUserControllerRegistrationRequest,
   ICheckAuthMiddlewareRequest,
   ICheckRoleMiddlewareRequest,
-  IBasket,
-  IBasketAttributes,
-  IBasketDevice,
-  IBasketDeviceAttributes,
+  ICart,
+  ICartAttributes,
+  ICartDevice,
+  ICartDeviceAttributes,
   IBrand,
   IBrandAttributes,
   IDevice,
