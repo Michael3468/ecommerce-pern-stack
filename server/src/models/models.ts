@@ -78,7 +78,7 @@ User.hasMany(Rating);
 Rating.belongsTo(User);
 
 Cart.hasMany(Device);
-Device.belongsTo(Cart);
+Device.belongsTo(Cart); // TODO: remove ?
 
 Type.hasMany(Device);
 Device.belongsTo(Type);
